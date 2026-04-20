@@ -169,12 +169,12 @@ export default function SobreSection() {
             {/* Imagem principal */}
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <img
-                src="http://www.tripoliconstrutora.com.br/arqs/empreendimentos/fotos/347.jpg"
+                src="/images/ilumi-bueno/foto-4.png"
                 alt="Trípoli Construtora"
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    'http://www.tripoliconstrutora.com.br/arqs/empreendimentos/fotos/321.jpg';
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/images/ilumi-bueno/foto-1.png';
                 }}
               />
               {/* Gradiente sutil */}

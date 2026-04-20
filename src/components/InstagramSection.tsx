@@ -2,13 +2,12 @@ import { Instagram, Heart, ExternalLink, ArrowUpRight } from 'lucide-react';
 import { useState } from 'react';
 
 const INSTA_URL = 'https://www.instagram.com/tripoliconstrutora/';
-const BASE = 'http://www.tripoliconstrutora.com.br/arqs/empreendimentos';
 
 /* ── Posts simulados com imagens reais dos empreendimentos ── */
 const posts = [
   {
     id: 1,
-    img: `${BASE}/fotos/347.jpg`,
+    img: '/images/ilumi-bueno/foto-4.png',
     caption: 'Ilumi Bueno — Sofisticação e natureza no coração do Setor Bueno. 36 andares de pura elegância. 🌿 #IlumiBueno #TrípoliConstrutora',
     likes: '1.2k',
     link: `${INSTA_URL}p/DXEqEKICOJF/`,
@@ -16,7 +15,7 @@ const posts = [
   },
   {
     id: 2,
-    img: `${BASE}/fotos/312.jpg`,
+    img: '/images/ritmo-bueno/foto-2.jpg',
     caption: 'Ritmo Bueno — Para cada estilo de vida, um apartamento perfeito. Do studio ao 3 quartos. 🏢 #RitmoBueno',
     likes: '987',
     link: `${INSTA_URL}p/DXJzsgSjeUW/`,
@@ -24,7 +23,7 @@ const posts = [
   },
   {
     id: 3,
-    img: `${BASE}/fotos/277.jpg`,
+    img: '/images/bosque-das-orquideas/hero.jpg',
     caption: 'Bosque das Orquídeas — Condomínio fechado com bosque privativo e lazer completo. Pronto para morar! 🌳 #BosqueOrquideas',
     likes: '854',
     link: `${INSTA_URL}p/DXO9ZPkk8To/`,
@@ -32,7 +31,7 @@ const posts = [
   },
   {
     id: 4,
-    img: `${BASE}/fotos/322.jpg`,
+    img: '/images/ilumi-bueno/foto-2.png',
     caption: 'Detalhes que fazem a diferença. Cada projeto Trípoli é pensado do alicerce ao acabamento. ✨ #TrípoliConstrutora #Qualidade',
     likes: '1.1k',
     link: INSTA_URL,
@@ -40,7 +39,7 @@ const posts = [
   },
   {
     id: 5,
-    img: `${BASE}/fotos/263.jpg`,
+    img: '/images/bosque-das-orquideas/foto-3.jpg',
     caption: 'Confiança não se promete. Se constrói. 21 anos transformando sonhos em endereços. 🏡 #Construtora #Goiânia',
     likes: '2.3k',
     link: INSTA_URL,
@@ -48,7 +47,7 @@ const posts = [
   },
   {
     id: 6,
-    img: `${BASE}/fotos/334.jpg`,
+    img: '/images/ritmo-bueno/foto-5.jpg',
     caption: 'MORAR OU INVESTIR? Por que não os dois? Venha conhecer nossos empreendimentos no Setor Bueno. 📍 #Investimento #ImóveisGoiânia',
     likes: '1.8k',
     link: INSTA_URL,
