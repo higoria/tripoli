@@ -1,11 +1,9 @@
-const BASE = 'http://www.tripoliconstrutora.com.br/arqs/empreendimentos';
-
 export interface Tipologia {
-  label: string;        // ex: "3 Suítes · 109m²"
+  label: string;
   quartos: string;
   area: string;
   vagas: string;
-  planta: string;       // URL da imagem da planta
+  planta: string;
 }
 
 export interface Empreendimento {
@@ -37,18 +35,19 @@ export const empreendimentos: Empreendimento[] = [
     bairro: 'Setor Bueno',
     cidade: 'Goiânia — GO',
     endereco: 'Rua T-37, Qd. 147, Lotes 14/15 — Setor Bueno, Goiânia',
-    descricao:
-      'Sofisticação e natureza integradas em pleno Setor Bueno.',
+    descricao: 'Sofisticação e natureza integradas em pleno Setor Bueno.',
     descricaoLonga:
       'O Ilumi Bueno une arquitetura contemporânea e áreas verdes exuberantes em um dos bairros mais valorizados de Goiânia. Com 36 andares e apenas 5 apartamentos por andar, o empreendimento garante privacidade e exclusividade para quem busca o melhor em qualidade de vida. O rooftop com piscina e vista panorâmica é o ponto alto do projeto.',
-    heroImg: `${BASE}/backgrounds/29.jpg`,
+    heroImg: '/images/ilumi-bueno/hero.jpg',
     galeria: [
-      `${BASE}/fotos/321.jpg`,
-      `${BASE}/fotos/322.jpg`,
-      `${BASE}/fotos/323.jpg`,
-      `${BASE}/fotos/347.jpg`,
-      `${BASE}/fotos/348.jpg`,
-      `${BASE}/fotos/349.jpg`,
+      '/images/ilumi-bueno/foto-1.png',
+      '/images/ilumi-bueno/foto-2.png',
+      '/images/ilumi-bueno/foto-3.png',
+      '/images/ilumi-bueno/foto-4.png',
+      '/images/ilumi-bueno/foto-5.png',
+      '/images/ilumi-bueno/foto-6.png',
+      '/images/ilumi-bueno/foto-7.png',
+      '/images/ilumi-bueno/foto-8.png',
     ],
     tipologias: [
       {
@@ -56,28 +55,28 @@ export const empreendimentos: Empreendimento[] = [
         quartos: '3 Suítes',
         area: '109m²',
         vagas: '2 vagas',
-        planta: `${BASE}/fotos/393.jpg`,
+        planta: '/images/ilumi-bueno/planta-4.jpg',
       },
       {
-        label: '3 Quartos · 91m²',
-        quartos: '3 Quartos (1 suíte)',
-        area: '91m²',
+        label: '3 Quartos · 75m²',
+        quartos: '3 Quartos',
+        area: '75m²',
         vagas: '2 vagas',
-        planta: `${BASE}/fotos/394.jpg`,
+        planta: '/images/ilumi-bueno/planta-3.jpg',
       },
       {
         label: '2 Quartos · 64m²',
         quartos: '2 Quartos (1 suíte)',
         area: '64m²',
         vagas: '1–2 vagas',
-        planta: `${BASE}/fotos/395.jpg`,
+        planta: '/images/ilumi-bueno/planta-5.jpg',
       },
       {
         label: '2 Quartos · 58m²',
         quartos: '2 Quartos',
         area: '58m²',
         vagas: '1 vaga',
-        planta: `${BASE}/fotos/396.jpg`,
+        planta: '/images/ilumi-bueno/planta-2.jpg',
       },
     ],
     lazer: ['Piscina Rooftop', 'Fitness', 'Espaço Gourmet', 'Kids Space', 'Salão de Festas'],
@@ -94,18 +93,19 @@ export const empreendimentos: Empreendimento[] = [
     bairro: 'Setor Bueno',
     cidade: 'Goiânia — GO',
     endereco: 'Rua T-37, Qd. 147, nº 3.449, Lotes 16/17 — Setor Bueno, Goiânia',
-    descricao:
-      'Para cada estilo de vida, um apartamento no coração do Bueno.',
+    descricao: 'Para cada estilo de vida, um apartamento no coração do Bueno.',
     descricaoLonga:
       'O Ritmo Bueno oferece a maior variedade de tipologias entre os empreendimentos da Trípoli, com opções do studio ao 3 quartos. São 32 andares, 8 apartamentos por andar e 3 elevadores, garantindo agilidade e conforto no dia a dia. Localizado lado a lado com o Ilumi Bueno, no coração do Setor Bueno.',
-    heroImg: `${BASE}/backgrounds/30.jpg`,
+    heroImg: '/images/ritmo-bueno/hero.jpg',
     galeria: [
-      `${BASE}/fotos/311.jpg`,
-      `${BASE}/fotos/312.jpg`,
-      `${BASE}/fotos/313.jpg`,
-      `${BASE}/fotos/333.jpg`,
-      `${BASE}/fotos/334.jpg`,
-      `${BASE}/fotos/359.jpg`,
+      '/images/ritmo-bueno/foto-1.jpg',
+      '/images/ritmo-bueno/foto-2.jpg',
+      '/images/ritmo-bueno/foto-3.jpg',
+      '/images/ritmo-bueno/foto-4.jpg',
+      '/images/ritmo-bueno/foto-5.jpg',
+      '/images/ritmo-bueno/foto-6.jpg',
+      '/images/ritmo-bueno/foto-7.jpg',
+      '/images/ritmo-bueno/foto-8.jpg',
     ],
     tipologias: [
       {
@@ -113,49 +113,49 @@ export const empreendimentos: Empreendimento[] = [
         quartos: '3 Quartos',
         area: '88m²',
         vagas: '1–2 vagas',
-        planta: `${BASE}/fotos/399.jpg`,
+        planta: '/images/ritmo-bueno/planta-8.jpg',
       },
       {
         label: '3 Quartos · 85m²',
         quartos: '3 Quartos',
         area: '85m²',
         vagas: '1–2 vagas',
-        planta: `${BASE}/fotos/400.jpg`,
+        planta: '/images/ritmo-bueno/planta-6.jpg',
       },
       {
         label: '2 Quartos · 67m²',
         quartos: '2 Quartos',
         area: '67m²',
         vagas: '1–2 vagas',
-        planta: `${BASE}/fotos/401.jpg`,
+        planta: '/images/ritmo-bueno/planta-5.jpg',
       },
       {
         label: '2 Quartos · 62m²',
         quartos: '2 Quartos',
         area: '62m²',
         vagas: '1 vaga',
-        planta: `${BASE}/fotos/402.jpg`,
+        planta: '/images/ritmo-bueno/planta-4.jpg',
       },
       {
         label: '1 Quarto · 51m²',
         quartos: '1 Quarto',
         area: '51m²',
         vagas: '1 vaga',
-        planta: `${BASE}/fotos/403.jpg`,
+        planta: '/images/ritmo-bueno/planta-3.jpg',
       },
       {
         label: '1 Quarto · 45m²',
         quartos: '1 Quarto',
         area: '45m²',
         vagas: '0–1 vaga',
-        planta: `${BASE}/fotos/404.jpg`,
+        planta: '/images/ritmo-bueno/planta-1.jpg',
       },
       {
         label: '1 Quarto · 39m²',
         quartos: '1 Quarto (Studio)',
         area: '39m²',
         vagas: '0 vaga',
-        planta: `${BASE}/fotos/405.jpg`,
+        planta: '/images/ritmo-bueno/planta-2.jpg',
       },
     ],
     lazer: ['Piscina Rooftop', 'Academia', 'Hall de Entrada Elegante', '3 Elevadores', 'Coworking'],
@@ -175,14 +175,16 @@ export const empreendimentos: Empreendimento[] = [
     descricao: 'Sobrados prontos em condomínio fechado com bosque privativo.',
     descricaoLonga:
       'O Bosque das Orquídeas é um condomínio fechado de sobrados com 64 unidades distribuídas em meio a área verde preservada. Com portaria 24 horas, piscina, salão de festas e bosque privativo, o empreendimento oferece segurança e qualidade de vida para toda a família. Pronto para morar agora.',
-    heroImg: `${BASE}/fotos/277.jpg`,
+    heroImg: '/images/bosque-das-orquideas/hero.jpg',
     galeria: [
-      `${BASE}/fotos/261.jpg`,
-      `${BASE}/fotos/262.jpg`,
-      `${BASE}/fotos/263.jpg`,
-      `${BASE}/fotos/277.jpg`,
-      `${BASE}/fotos/278.jpg`,
-      `${BASE}/fotos/279.jpg`,
+      '/images/bosque-das-orquideas/foto-1.jpg',
+      '/images/bosque-das-orquideas/foto-2.jpg',
+      '/images/bosque-das-orquideas/foto-3.jpg',
+      '/images/bosque-das-orquideas/foto-4.jpg',
+      '/images/bosque-das-orquideas/foto-5.jpg',
+      '/images/bosque-das-orquideas/foto-6.jpg',
+      '/images/bosque-das-orquideas/foto-7.jpg',
+      '/images/bosque-das-orquideas/foto-8.jpg',
     ],
     tipologias: [
       {
@@ -190,7 +192,7 @@ export const empreendimentos: Empreendimento[] = [
         quartos: '3 Quartos',
         area: '161m²',
         vagas: '2 vagas',
-        planta: `${BASE}/fotos/290.jpg`,
+        planta: '/images/bosque-das-orquideas/planta-3.jpg',
       },
     ],
     lazer: ['Portaria 24h', 'Piscina', 'Salão de Festas', 'Bosque Privativo', 'Área de Lazer'],
