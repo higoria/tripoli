@@ -30,9 +30,12 @@ export default function App() {
 
           {/* Navbar */}
           <header className="flex justify-between items-center py-8">
-            <div className="flex items-center gap-3">
-              <Hexagon className="w-5 h-5 text-[#4ade80] stroke-[1.5]" />
-              <span className="font-serif font-medium text-lg tracking-widest hidden sm:block mt-1 text-white">TRÍPOLI</span>
+            <div className="relative w-[160px] sm:w-[240px] h-[40px] sm:h-[50px] flex items-center">
+              <img
+                src="/logo.png"
+                alt="Trípoli Construtora"
+                className="absolute top-1/2 left-[45%] -translate-x-1/2 -translate-y-1/2 min-w-[200px] sm:min-w-[280px] object-contain drop-shadow-md pointer-events-none"
+              />
             </div>
             <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium tracking-wide text-white/60">
               <a href="#" className="hover:text-white transition-colors">Home</a>
