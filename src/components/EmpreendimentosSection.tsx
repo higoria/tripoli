@@ -8,18 +8,16 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
   const [activeImg, setActiveImg] = useState(0);
   const [imgError, setImgError] = useState(false);
 
-  const todasAsImagens = emp.galeria.flatMap(c => c.imagens);
+  // Usa apenas as primeiras 3 imagens para o preview do card
+  const previewImagens = emp.galeria.flatMap(c => c.imagens).slice(0, 3);
 
   useEffect(() => {
-    if (!todasAsImagens || todasAsImagens.length <= 1) return;
-    
-    // Auto-advance carousel every 4 seconds
+    if (!previewImagens || previewImagens.length <= 1) return;
     const interval = setInterval(() => {
-      setActiveImg((current) => (current + 1) % todasAsImagens.length);
-    }, 2500);
-    
+      setActiveImg((current) => (current + 1) % previewImagens.length);
+    }, 3500);
     return () => clearInterval(interval);
-  }, [todasAsImagens]);
+  }, [previewImagens.length]);
 
   return (
     <Link
@@ -31,11 +29,13 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
       <div className="relative h-64 overflow-hidden bg-zinc-100">
         {!imgError ? (
           <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105">
-            {todasAsImagens.map((img, i) => (
+            {previewImagens.map((img, i) => (
               <img
                 key={i}
                 src={img}
                 alt={`${emp.nome} - Imagem ${i + 1}`}
+                loading={index === 0 && i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
                   i === activeImg ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
@@ -63,9 +63,9 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
         </div>
 
         {/* Thumbnail dots */}
-        {todasAsImagens.length > 1 && (
+        {previewImagens.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
-            {todasAsImagens.slice(0, 4).map((_, i) => (
+            {previewImagens.map((_, i) => (
               <button
                 key={i}
                 onClick={(e) => {

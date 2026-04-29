@@ -17,8 +17,27 @@ export default defineConfig(({mode}) => {
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
     },
+    build: {
+      // Não gera source maps em produção (reduz tamanho do build)
+      sourcemap: false,
+      // Avisa se um chunk passar de 500KB
+      chunkSizeWarningLimit: 500,
+      rollupOptions: {
+        output: {
+          // Separa libs grandes em chunks próprios para melhor cache no browser
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+            'vendor-motion': ['motion'],
+            'vendor-leaflet': ['leaflet', 'react-leaflet'],
+            'vendor-lucide': ['lucide-react'],
+          },
+        },
+      },
+    },
+    // Inlina assets pequenos (<= 8 KB) como base64
+    assetsInlineLimit: 8192,
   };
 });
