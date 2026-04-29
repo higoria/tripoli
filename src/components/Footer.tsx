@@ -1,50 +1,72 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, MapPin, Phone, Instagram, Facebook } from 'lucide-react';
 
 const TRIPOLI = 'http://www.tripoliconstrutora.com.br';
 
+interface FooterLink {
+  label: string;
+  href: string;
+  internal?: boolean; // usa React Router <Link>
+}
+
 interface AccordionItem {
   title: string;
-  links: { label: string; href: string }[];
+  links: FooterLink[];
 }
 
 const sections: AccordionItem[] = [
   {
     title: 'Ver todos os imóveis',
     links: [
-      { label: 'Ilumi Bueno', href: `/empreendimento/ilumi-bueno` },
-      { label: 'Ritmo Bueno', href: `/empreendimento/ritmo-bueno` },
-      { label: 'Bosque das Orquídeas', href: `/empreendimento/bosque-das-orquideas` },
-      { label: 'Pronto para Morar', href: `${TRIPOLI}/imoveis/pronto-para-morar/` },
-      { label: 'Em Obras', href: `${TRIPOLI}/imoveis/em-obras/` },
-    ],
-  },
-  {
-    title: 'Fale com um Corretor',
-    links: [
-      { label: 'WhatsApp (62) 98160-0202', href: 'https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Gostaria%20de%20falar%20com%20um%20corretor.' },
-      { label: 'Telefone (62) 3941-3060', href: 'tel:+556239413060' },
-      { label: 'Corretores e Imobiliárias', href: `${TRIPOLI}/corretores-e-imobiliarias/` },
-    ],
-  },
-  {
-    title: 'Sobre a Trípoli',
-    links: [
-      { label: 'Nossa História', href: `${TRIPOLI}/a-tripoli/` },
-      { label: 'Premiações', href: `${TRIPOLI}/a-tripoli/#premiacoes` },
-      { label: 'Blog', href: `${TRIPOLI}/blog/` },
-      { label: 'Trabalhe Conosco', href: `${TRIPOLI}/trabalhe-conosco/` },
+      { label: 'Ilumi Bueno', href: '/empreendimento/ilumi-bueno', internal: true },
+      { label: 'Ritmo Bueno', href: '/empreendimento/ritmo-bueno', internal: true },
+      { label: 'Bosque das Orquídeas', href: '/empreendimento/bosque-das-orquideas', internal: true },
     ],
   },
   {
     title: 'Fale Conosco',
     links: [
-      { label: 'Quero comprar um imóvel', href: `${TRIPOLI}/fale-conosco/` },
-      { label: 'Seja um fornecedor', href: `${TRIPOLI}/fale-conosco/` },
-      { label: 'Simular Financiamento', href: `${TRIPOLI}/simular-financiamento/` },
+      { label: 'Quero comprar um imóvel', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20comprar%20um%20imóvel.` },
+      { label: 'Quero vender meu terreno', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20vender%20meu%20terreno.` },
+      { label: 'Seja um fornecedor', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Gostaria%20de%20ser%20um%20fornecedor.` },
+      { label: 'Sou corretor', href: `${TRIPOLI}/corretores-e-imobiliarias/` },
+    ],
+  },
+  {
+    title: 'Sobre a Trípoli',
+    links: [
+      { label: 'Conheça a Trípoli', href: '/sobre', internal: true },
+    ],
+  },
+  {
+    title: 'Trabalhe Conosco',
+    links: [
+      { label: 'Enviar meu currículo', href: '/trabalhe-conosco', internal: true },
     ],
   },
 ];
+
+function FooterLink({ link }: { link: FooterLink }) {
+  const cls = 'text-[13px] text-zinc-500 hover:text-[#1b4332] transition-colors leading-snug';
+  if (link.internal) {
+    return (
+      <Link to={link.href} onClick={() => window.scrollTo(0, 0)} className={cls}>
+        {link.label}
+      </Link>
+    );
+  }
+  return (
+    <a
+      href={link.href}
+      target={link.href.startsWith('http') || link.href.startsWith('mailto') ? '_blank' : undefined}
+      rel="noopener noreferrer"
+      className={cls}
+    >
+      {link.label}
+    </a>
+  );
+}
 
 function AccordionSection({ item }: { item: AccordionItem }) {
   const [open, setOpen] = useState(false);
@@ -66,14 +88,7 @@ function AccordionSection({ item }: { item: AccordionItem }) {
         <ul className="flex flex-col gap-3 pl-1">
           {item.links.map((l) => (
             <li key={l.label}>
-              <a
-                href={l.href}
-                target={l.href.startsWith('http') ? '_blank' : undefined}
-                rel="noopener noreferrer"
-                className="text-[13px] text-zinc-500 hover:text-[#1b4332] transition-colors"
-              >
-                {l.label}
-              </a>
+              <FooterLink link={l} />
             </li>
           ))}
         </ul>
@@ -95,7 +110,7 @@ export default function Footer() {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src={`${TRIPOLI}/arqs/logo/logo.png`}
+                src={`/logo.png`}
                 alt="Trípoli Construtora"
                 className="h-10 object-contain"
                 onError={(e) => {
@@ -103,10 +118,6 @@ export default function Footer() {
                   el.style.display = 'none';
                 }}
               />
-              <div>
-                <p className="font-serif text-xl font-light text-zinc-900 leading-tight">Trípoli</p>
-                <p className="text-[10px] text-zinc-500 tracking-widest uppercase">Construtora</p>
-              </div>
             </div>
 
             <p className="text-[13px] text-zinc-500 leading-relaxed max-w-[240px]">
@@ -155,14 +166,7 @@ export default function Footer() {
                 <ul className="flex flex-col gap-2.5">
                   {s.links.map((l) => (
                     <li key={l.label}>
-                      <a
-                        href={l.href}
-                        target={l.href.startsWith('http') ? '_blank' : undefined}
-                        rel="noopener noreferrer"
-                        className="text-[13px] text-zinc-500 hover:text-[#1b4332] transition-colors leading-snug"
-                      >
-                        {l.label}
-                      </a>
+                      <FooterLink link={l} />
                     </li>
                   ))}
                 </ul>
@@ -191,6 +195,10 @@ export default function Footer() {
             <a href={`${TRIPOLI}/termos-de-uso/`} target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 transition-colors">
               Termos de Uso
             </a>
+            <span>·</span>
+            <Link to="/trabalhe-conosco" onClick={() => window.scrollTo(0, 0)} className="hover:text-zinc-600 transition-colors">
+              Trabalhe Conosco
+            </Link>
           </div>
         </div>
       </div>

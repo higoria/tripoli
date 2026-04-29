@@ -12,6 +12,9 @@ import {
   Phone,
 } from 'lucide-react';
 import { getEmpreendimentoBySlug } from '../data/empreendimentos';
+import WhatsAppButton from '../components/WhatsAppButton';
+import { MapSection } from '../components/MapSection';
+import { SectorSection } from '../components/SectorSection';
 
 const BASE_TRIPOLI = 'http://www.tripoliconstrutora.com.br';
 
@@ -43,6 +46,7 @@ export default function EmpreendimentoDetalhe() {
 
   const [tipologiaAtiva, setTipologiaAtiva] = useState(0);
   const [plantaErr, setPlantaErr] = useState(false);
+  const [categoriaGaleriaAtiva, setCategoriaGaleriaAtiva] = useState(0);
 
   if (!emp) {
     return (
@@ -56,7 +60,7 @@ export default function EmpreendimentoDetalhe() {
   const tipologia = emp.tipologias[tipologiaAtiva];
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white">
+    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white overflow-x-hidden">
 
       {/* ── HEADER ─────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
@@ -69,7 +73,7 @@ export default function EmpreendimentoDetalhe() {
             Voltar
           </Link>
 
-          <div className="flex items-center gap-2 text-xs text-zinc-400">
+          <div className="hidden md:flex items-center gap-2 text-xs text-zinc-400">
             <Link to="/" className="hover:text-zinc-900 transition-colors">Home</Link>
             <ChevronRight className="w-3 h-3" />
             <Link to="/#empreendimentos" className="hover:text-zinc-900 transition-colors">Empreendimentos</Link>
@@ -182,16 +186,16 @@ export default function EmpreendimentoDetalhe() {
             </div>
 
             {/* Imagem da planta */}
-            <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-white">
+            <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-white flex justify-center p-4">
               {!plantaErr ? (
                 <img
                   src={tipologia.planta}
                   alt={`Planta ${tipologia.label}`}
-                  className="w-full object-contain max-h-[480px]"
+                  className="w-full object-contain max-h-[600px]"
                   onError={() => setPlantaErr(true)}
                 />
               ) : (
-                <div className="flex flex-col items-center justify-center py-20 gap-4">
+                <div className="flex flex-col items-center justify-center py-24 gap-4">
                   <Maximize2 className="w-10 h-10 text-zinc-200" />
                   <p className="text-zinc-400 text-sm">Planta não disponível para esta tipologia</p>
                 </div>
@@ -207,12 +211,30 @@ export default function EmpreendimentoDetalhe() {
           {emp.galeria.length > 0 && (
             <div>
               <h2 className="font-serif text-2xl font-light text-zinc-900 mb-6">Galeria</h2>
+              
+              {/* Tabs das Categorias da Galeria */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {emp.galeria.map((cat, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCategoriaGaleriaAtiva(i)}
+                    className={`px-4 py-2 rounded-full text-[12px] font-medium tracking-wide border transition-all duration-200 ${
+                      i === categoriaGaleriaAtiva
+                        ? 'bg-[#1b4332] border-[#1b4332] text-white'
+                        : 'bg-white border-zinc-200 text-zinc-500 hover:border-zinc-300 hover:text-zinc-900'
+                    }`}
+                  >
+                    {cat.nome}
+                  </button>
+                ))}
+              </div>
+
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {emp.galeria.map((img, i) => (
+                {emp.galeria[categoriaGaleriaAtiva].imagens.map((img, i) => (
                   <div key={i} className="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200">
                     <ImgWithFallback
                       src={img}
-                      alt={`${emp.nome} ${i + 1}`}
+                      alt={`${emp.nome} - ${emp.galeria[categoriaGaleriaAtiva].nome} ${i + 1}`}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -220,6 +242,7 @@ export default function EmpreendimentoDetalhe() {
               </div>
             </div>
           )}
+
         </div>
 
         {/* ── COLUNA DIREITA — SIDEBAR ─────────────────────── */}
@@ -290,6 +313,19 @@ export default function EmpreendimentoDetalhe() {
           </a>
         </div>
       </div>
+
+      {/* ── SEÇÃO DO SETOR (largura total) ──────────────────── */}
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12">
+        <SectorSection setorInfo={emp.setorInfo} />
+      </div>
+
+      {/* ── MAPA (largura total) ─────────────────────────────── */}
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 pb-14">
+        <MapSection empreendimento={emp} />
+      </div>
+
+      {/* ── WHATSAPP FLUTUANTE ─────────────────────────────────── */}
+      <WhatsAppButton />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Phone, MessageCircle, Users } from 'lucide-react';
+import { X, Phone, MessageCircle } from 'lucide-react';
 
 const WA_NUMBER = '556298160202';
 const WA_BASE = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
@@ -21,27 +21,10 @@ const options = [
     iconColor: '#1b4332',
     href: 'tel:+556239413060',
   },
-  {
-    id: 'corretores',
-    label: 'Fale com nossos Corretores',
-    sublabel: 'Encontre um corretor credenciado',
-    icon: Users,
-    iconColor: '#1b4332',
-    href: 'http://www.tripoliconstrutora.com.br/corretores-e-imobiliarias/',
-  },
 ];
 
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  // Aparece após scroll de 200px
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 200);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   // Fecha modal com ESC
   useEffect(() => {
@@ -62,9 +45,7 @@ export default function WhatsAppButton() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Abrir chat WhatsApp"
-        className={`fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-[0_8px_32px_rgba(37,211,102,0.4)] transition-all duration-500 group ${
-          visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-90 pointer-events-none'
-        }`}
+        className={`fixed bottom-6 right-6 z-[100] flex items-center justify-center w-14 h-14 rounded-full shadow-[0_8px_32px_rgba(37,211,102,0.4)] transition-all duration-500 group opacity-100 translate-y-0 scale-100`}
         style={{ background: 'linear-gradient(135deg, #25D366, #128C7E)' }}
       >
         {/* Ping animado */}
@@ -82,7 +63,7 @@ export default function WhatsAppButton() {
       {/* ── MODAL ───────────────────────────────────────── */}
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[110] bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${
           open ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setOpen(false)}
@@ -90,7 +71,7 @@ export default function WhatsAppButton() {
 
       {/* Painel do modal */}
       <div
-        className={`fixed z-[70] bottom-24 right-6 w-[320px] sm:w-[360px] rounded-2xl bg-white border border-zinc-200 shadow-[0_30px_80px_rgba(0,0,0,0.1)] transition-all duration-300 ${
+        className={`fixed z-[120] bottom-24 right-4 left-4 sm:left-auto sm:right-6 sm:w-[360px] rounded-2xl bg-white border border-zinc-200 shadow-[0_30px_80px_rgba(0,0,0,0.1)] transition-all duration-300 ${
           open
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 translate-y-4 scale-95 pointer-events-none'

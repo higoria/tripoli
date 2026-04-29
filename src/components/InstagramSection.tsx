@@ -65,7 +65,7 @@ function PostCard({ post }: { post: typeof posts[number] }) {
       href={post.link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block aspect-square overflow-hidden bg-zinc-100 rounded-xl border border-zinc-200 cursor-pointer shadow-sm"
+      className="group relative block aspect-[4/5] overflow-hidden bg-zinc-100 rounded-xl border border-zinc-200 cursor-pointer shadow-sm"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -156,29 +156,14 @@ export default function InstagramSection() {
             </h2>
           </div>
 
-          {/* Stats do perfil */}
-          <div className="flex items-center gap-8 md:gap-10 pb-2">
-            <div className="flex flex-col items-center gap-0.5">
-              <span className="font-serif text-2xl font-light text-zinc-900">1.331</span>
-              <span className="text-[11px] text-zinc-500 tracking-wide">publicações</span>
-            </div>
-            <div className="w-px h-8 bg-zinc-200" />
-            <div className="flex flex-col items-center gap-0.5">
-              <span className="font-serif text-2xl font-light text-zinc-900">3.016</span>
-              <span className="text-[11px] text-zinc-500 tracking-wide">seguidores</span>
-            </div>
-            <div className="w-px h-8 bg-zinc-200" />
-            <div className="flex flex-col items-center gap-0.5">
-              <span className="font-serif text-2xl font-light text-zinc-900">2.668</span>
-              <span className="text-[11px] text-zinc-500 tracking-wide">seguindo</span>
-            </div>
-          </div>
         </div>
 
-        {/* ── GRID DE POSTS ────────────────────────────────── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+        {/* ── CARROSSEL DE POSTS ────────────────────────────── */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 sm:gap-4 pb-8 -mx-6 px-6 sm:-mx-12 sm:px-12 md:mx-0 md:px-0 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <div key={post.id} className="w-[70vw] sm:w-[280px] md:w-[320px] shrink-0 snap-center md:snap-start">
+              <PostCard post={post} />
+            </div>
           ))}
         </div>
 
