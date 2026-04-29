@@ -463,9 +463,8 @@ export const empreendimentos: Empreendimento[] = [
       nome: 'Sítios Santa Luzia',
       descricao: 'O bairro Sítios Santa Luzia une a tranquilidade de uma região residencial arborizada com o desenvolvimento contínuo de Aparecida de Goiânia. Perfeito para quem busca paz e contato com a natureza sem abrir mão de acessos estratégicos e conveniências próximas para o dia a dia.',
       imagens: [
-        'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800',
-        'https://images.unsplash.com/photo-1584347781079-99435b5463f8?auto=format&fit=crop&q=80&w=800',
-        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800'
+        '/images/bosque-das-orquideas/setor-1.jpg',
+        '/images/bosque-das-orquideas/setor-2.jpg',
       ],
     },
   },
