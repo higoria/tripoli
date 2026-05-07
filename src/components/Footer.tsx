@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { ChevronDown, MapPin, Phone, Instagram, Facebook } from 'lucide-react';
 
 const TRIPOLI = 'http://www.tripoliconstrutora.com.br';
@@ -101,7 +102,13 @@ function AccordionSection({ item }: { item: AccordionItem }) {
 export default function Footer() {
   return (
     <footer id="contato" className="bg-zinc-100 border-t border-zinc-200">
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-20"
+      >
 
         {/* ── TOP: Logo + Nav ─────────────────────────────── */}
         <div className="py-14 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-20">
@@ -208,7 +215,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { ArrowLeft, Upload, CheckCircle, Loader2, X } from 'lucide-react';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -140,7 +141,12 @@ export default function TrabalheConosco() {
           }}
         />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1b4332]/30 rounded-full blur-[120px] pointer-events-none" />
-        <div className="relative max-w-[780px] mx-auto text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative max-w-[780px] mx-auto text-center"
+        >
           <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#4ade80] mb-4">
             Carreira · Trípoli Construtora
           </p>
@@ -150,7 +156,7 @@ export default function TrabalheConosco() {
           <p className="text-zinc-400 text-lg leading-relaxed max-w-xl mx-auto">
             Faça parte do time que transforma sonhos em endereços. Envie seu currículo e venha crescer com a gente.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── FORMULÁRIO ───────────────────────────────── */}
@@ -182,7 +188,14 @@ export default function TrabalheConosco() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <motion.form 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            onSubmit={handleSubmit} 
+            className="flex flex-col gap-6"
+          >
 
             <div>
               <h2 className="font-serif text-2xl font-light text-zinc-900 mb-1">Sua candidatura</h2>
@@ -355,7 +368,7 @@ export default function TrabalheConosco() {
               Lembre-se de <span className="font-medium text-zinc-500">anexar o arquivo do currículo</span> antes de confirmar o envio.
             </p>
 
-          </form>
+          </motion.form>
         )}
       </section>
 

@@ -1,5 +1,6 @@
 import { Instagram, Heart, ExternalLink, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { motion } from 'motion/react';
 
 const INSTA_URL = 'https://www.instagram.com/tripoliconstrutora/';
 
@@ -142,7 +143,13 @@ export default function InstagramSection() {
       <div className="relative max-w-[1400px] mx-auto">
 
         {/* ── HEADER ──────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12"
+        >
           <div className="flex flex-col gap-4">
             {/* Badge Instagram */}
             <div className="flex items-center gap-2.5">
@@ -168,7 +175,7 @@ export default function InstagramSection() {
             </h2>
           </div>
 
-        </div>
+        </motion.div>
 
         {/* ── CARROSSEL DE POSTS ────────────────────────────── */}
         <div className="relative group/insta">
@@ -193,10 +200,17 @@ export default function InstagramSection() {
             ref={scrollRef}
             className="flex overflow-x-auto snap-x snap-mandatory gap-3 sm:gap-4 pb-8 -mx-6 px-6 sm:-mx-12 sm:px-12 md:mx-0 md:px-0 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
           >
-            {posts.map((post) => (
-              <div key={post.id} className="w-[70vw] sm:w-[280px] md:w-[320px] shrink-0 snap-center md:snap-start">
+            {posts.map((post, i) => (
+              <motion.div 
+                key={post.id} 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: "easeOut" }}
+                className="w-[70vw] sm:w-[280px] md:w-[320px] shrink-0 snap-center md:snap-start"
+              >
                 <PostCard post={post} />
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

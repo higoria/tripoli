@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { ArrowUpRight, BedDouble, Maximize2, Car, MapPin, CheckCircle, Clock, MoveRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { empreendimentos, type Empreendimento } from '../data/empreendimentos';
 
@@ -20,11 +21,17 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
   }, [previewImagens.length]);
 
   return (
-    <Link
-      to={`/empreendimento/${emp.slug}`}
-      className="h-full group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 hover:border-[#2d6a4f]/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(45,106,79,0.1)]"
-      style={{ animationDelay: `${index * 120}ms` }}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+      className="h-full"
     >
+      <Link
+        to={`/empreendimento/${emp.slug}`}
+        className="h-full group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 hover:border-[#2d6a4f]/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(45,106,79,0.1)]"
+      >
       {/* Image area */}
       <div className="relative h-[400px] overflow-hidden bg-zinc-100">
         {!imgError ? (
@@ -134,7 +141,8 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
           <ArrowUpRight className="w-4 h-4 text-[#1b4332] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
         </div>
       </div>
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
 
@@ -167,14 +175,20 @@ export default function EmpreendimentosSection() {
 
       <div className="relative max-w-[1400px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14"
+        >
           <div>
             <h2 className="font-serif font-light text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.1] tracking-tight text-zinc-900">
               Nossos<br />
               <span className="text-[#1b4332]">Empreendimentos</span>
             </h2>
           </div>
-        </div>
+        </motion.div>
 
         <div className="relative group/carousel">
           {/* Navegação - Setas no meio */}

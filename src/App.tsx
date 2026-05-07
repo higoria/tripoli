@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { ArrowUpRight, Hexagon, Menu, X } from 'lucide-react';
 
 const EmpreendimentosSection = lazy(() => import('./components/EmpreendimentosSection'));
@@ -123,13 +124,22 @@ export default function App() {
 
           {/* Hero Central Content */}
           <main className="flex-1 flex flex-col items-center justify-center text-center w-full pt-20 pb-10">
-            <h1 className="font-serif font-light text-3xl sm:text-4xl md:text-5xl lg:text-[4.8rem] leading-[1.1] tracking-[-0.03em] mb-8 max-w-5xl mx-auto">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="font-serif font-light text-3xl sm:text-4xl md:text-5xl lg:text-[4.8rem] leading-[1.1] tracking-[-0.03em] mb-8 max-w-5xl mx-auto"
+            >
               <span className="block text-white">Conquiste</span>
               <span className="block text-[#4ade80] mt-1 lg:mt-3">o espaço dos seus sonhos.</span>
-            </h1>
+            </motion.h1>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
+            >
               <a
                 href="#empreendimentos"
                 className="flex items-center justify-center gap-2 bg-transparent border border-white/20 text-white px-7 py-3.5 rounded-full font-medium text-[13px] tracking-wide hover:bg-white/10 transition-colors w-full sm:w-auto group"
@@ -137,7 +147,7 @@ export default function App() {
                 Ver Empreendimentos
                 <ArrowUpRight className="w-[18px] h-[18px] stroke-[1.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
-            </div>
+            </motion.div>
           </main>
 
           {/* Footer Metrics */}

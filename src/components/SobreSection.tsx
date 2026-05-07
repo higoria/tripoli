@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'motion/react';
 import { CheckCircle2 } from 'lucide-react';
 
 /* ── Contador animado ─────────────────────────────────────── */
@@ -120,7 +121,13 @@ export default function SobreSection() {
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
           {/* Coluna esquerda — Texto */}
-          <div className="flex flex-col gap-8">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex flex-col gap-8"
+          >
             <div>
               <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#1b4332] mb-4">
                 A Trípoli Construtora
@@ -164,10 +171,16 @@ export default function SobreSection() {
             >
               Conheça nossa história
             </a>
-          </div>
+          </motion.div>
 
           {/* Coluna direita — Imagem + card flutuante */}
-          <div className="relative">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="relative"
+          >
             {/* Imagem principal */}
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <img
@@ -196,7 +209,7 @@ export default function SobreSection() {
               <p className="font-serif text-3xl font-light text-[#1b4332]">3</p>
               <p className="text-[12px] text-zinc-500 mt-1 leading-tight">Prêmios de<br />excelência</p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -227,7 +240,13 @@ export default function SobreSection() {
 
         <div className="max-w-[1400px] mx-auto">
           {/* Header da seção de prêmios */}
-          <div className="text-center mb-14">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center mb-14"
+          >
             <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#1b4332] mb-4">
               Reconhecimento
             </p>
@@ -237,16 +256,20 @@ export default function SobreSection() {
             <p className="text-zinc-500 text-[14px] mt-4 max-w-lg mx-auto leading-relaxed">
               Reconhecida por órgãos como o CREA-GO e em âmbito nacional pelo compromisso com a sustentabilidade e inovação na engenharia.
             </p>
-          </div>
+          </motion.div>
 
           {/* Cards dos prêmios */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {premios.map((p) => (
-              <a
+            {premios.map((p, i) => (
+              <motion.a
                 key={p.nome}
                 href={p.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
                 className="group flex flex-col gap-6 p-7 rounded-2xl bg-white border border-zinc-200 hover:border-[#1b4332]/30 transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)]"
               >
                 {/* Logo do prêmio */}
@@ -272,7 +295,7 @@ export default function SobreSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </div>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>

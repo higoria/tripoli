@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { ArrowLeft, CheckCircle, Loader2 } from 'lucide-react';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -116,7 +117,12 @@ export default function SouCorretor() {
           }}
         />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1b4332]/30 rounded-full blur-[120px] pointer-events-none" />
-        <div className="relative max-w-[780px] mx-auto text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative max-w-[780px] mx-auto text-center"
+        >
           <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#4ade80] mb-4">
             Parceiros · Trípoli Construtora
           </p>
@@ -126,7 +132,7 @@ export default function SouCorretor() {
           <p className="text-zinc-400 text-lg leading-relaxed max-w-xl mx-auto">
             Faça parte da nossa rede de parceiros e ofereça os melhores empreendimentos da Trípoli para seus clientes.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── FORMULÁRIO ───────────────────────────────── */}
@@ -154,7 +160,14 @@ export default function SouCorretor() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <motion.form 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            onSubmit={handleSubmit} 
+            className="flex flex-col gap-6"
+          >
 
             <div>
               <h2 className="font-serif text-2xl font-light text-zinc-900 mb-1">Ficha Corretor</h2>
@@ -265,7 +278,7 @@ export default function SouCorretor() {
               Seus dados são enviados diretamente para nossa equipe comercial.
             </p>
 
-          </form>
+          </motion.form>
         )}
       </section>
 

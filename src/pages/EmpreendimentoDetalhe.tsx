@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import {
   ArrowLeft,
   BedDouble,
@@ -126,7 +127,12 @@ export default function EmpreendimentoDetalhe() {
         </div>
 
         {/* Título sobre a imagem */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-12 pb-10 max-w-[1400px] mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="absolute bottom-0 left-0 right-0 px-6 sm:px-12 pb-10 max-w-[1400px] mx-auto"
+        >
           <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-400 mb-3">
             {emp.tipo} · Trípoli Construtora
           </p>
@@ -137,14 +143,20 @@ export default function EmpreendimentoDetalhe() {
             <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-[#4ade80]/60" />
             <span className="text-[13px]">{emp.endereco}</span>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── CONTEÚDO PRINCIPAL ─────────────────────────────── */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-14 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 lg:gap-16">
 
         {/* ── COLUNA ESQUERDA ──────────────────────────────── */}
-        <div className="flex flex-col gap-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col gap-12"
+        >
 
           {/* Descrição */}
           <div>
@@ -295,10 +307,18 @@ export default function EmpreendimentoDetalhe() {
             </div>
           )}
 
-        </div>
+          )}
+
+        </motion.div>
 
         {/* ── COLUNA DIREITA — SIDEBAR ─────────────────────── */}
-        <div className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start"
+        >
 
           {/* Card de interesse */}
           <div className="rounded-2xl border border-zinc-200 shadow-sm bg-white p-6 flex flex-col gap-5">
@@ -363,7 +383,7 @@ export default function EmpreendimentoDetalhe() {
           >
             Ver no site oficial da Trípoli ↗
           </a>
-        </div>
+        </motion.div>
       </div>
 
       {/* ── SEÇÃO DO SETOR (largura total) ──────────────────── */}
