@@ -127,7 +127,7 @@ export default function App() {
             <motion.h1 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
               className="font-serif font-light text-3xl sm:text-4xl md:text-5xl lg:text-[4.8rem] leading-[1.1] tracking-[-0.03em] mb-8 max-w-5xl mx-auto"
             >
               <span className="block text-white">Conquiste</span>
@@ -137,7 +137,7 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
             >
               <a

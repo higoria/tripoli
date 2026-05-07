@@ -124,8 +124,8 @@ export default function SobreSection() {
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px", amount: 0.2 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-8"
           >
             <div>
@@ -177,8 +177,8 @@ export default function SobreSection() {
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px", amount: 0.2 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
             {/* Imagem principal */}
@@ -243,8 +243,8 @@ export default function SobreSection() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px", amount: 0.2 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-14"
           >
             <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#1b4332] mb-4">
@@ -268,8 +268,8 @@ export default function SobreSection() {
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+                viewport={{ once: true, margin: "-50px", amount: 0.1 }}
+                transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="group flex flex-col gap-6 p-7 rounded-2xl bg-white border border-zinc-200 hover:border-[#1b4332]/30 transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)]"
               >
                 {/* Logo do prêmio */}

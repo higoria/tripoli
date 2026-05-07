@@ -105,8 +105,8 @@ export default function Footer() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true, margin: "-50px", amount: 0.1 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-20"
       >
 

@@ -120,7 +120,7 @@ export default function SouCorretor() {
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="relative max-w-[780px] mx-auto text-center"
         >
           <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-[#4ade80] mb-4">
@@ -163,8 +163,8 @@ export default function SouCorretor() {
           <motion.form 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px", amount: 0.1 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             onSubmit={handleSubmit} 
             className="flex flex-col gap-6"
           >
