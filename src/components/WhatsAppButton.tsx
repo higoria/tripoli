@@ -16,10 +16,10 @@ const options = [
   {
     id: 'telefone',
     label: 'Telefone',
-    sublabel: '(62) 3941-3060',
+    sublabel: '(62) 98160-0202',
     icon: Phone,
     iconColor: '#1b4332',
-    href: 'tel:+556239413060',
+    href: 'tel:+556298160202',
   },
 ];
 

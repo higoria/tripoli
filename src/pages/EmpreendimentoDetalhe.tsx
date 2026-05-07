@@ -10,6 +10,9 @@ import {
   Clock,
   ChevronRight,
   Phone,
+  ZoomIn,
+  X,
+  Download,
 } from 'lucide-react';
 import { getEmpreendimentoBySlug } from '../data/empreendimentos';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -23,10 +26,14 @@ function ImgWithFallback({
   src,
   alt,
   className,
+  loading,
+  decoding,
 }: {
   src: string;
   alt: string;
   className?: string;
+  loading?: 'eager' | 'lazy';
+  decoding?: 'async' | 'auto' | 'sync';
 }) {
   const [err, setErr] = useState(false);
   if (err) {
@@ -36,7 +43,7 @@ function ImgWithFallback({
       </div>
     );
   }
-  return <img src={src} alt={alt} className={className} onError={() => setErr(true)} />;
+  return <img src={src} alt={alt} className={className} loading={loading} decoding={decoding} onError={() => setErr(true)} />;
 }
 
 /* ── Página de Detalhe ────────────────────────────────────── */
@@ -47,6 +54,10 @@ export default function EmpreendimentoDetalhe() {
   const [tipologiaAtiva, setTipologiaAtiva] = useState(0);
   const [plantaErr, setPlantaErr] = useState(false);
   const [categoriaGaleriaAtiva, setCategoriaGaleriaAtiva] = useState(0);
+  const [plantaZoomOpen, setPlantaZoomOpen] = useState(false);
+  const [galeriaZoomOpen, setGaleriaZoomOpen] = useState(false);
+  const [imgZoomSrc, setImgZoomSrc] = useState('');
+
 
   if (!emp) {
     return (
@@ -98,6 +109,8 @@ export default function EmpreendimentoDetalhe() {
         <ImgWithFallback
           src={emp.heroImg}
           alt={emp.nome}
+          loading="eager"
+          decoding="sync"
           className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Gradiente escuro para legibilidade do texto branco em cima da foto */}
@@ -186,12 +199,17 @@ export default function EmpreendimentoDetalhe() {
             </div>
 
             {/* Imagem da planta */}
-            <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-white flex justify-center p-4">
+            <div 
+              className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-white flex justify-center p-4 cursor-pointer group hover:border-[#1b4332]/30 transition-colors"
+              onClick={() => !plantaErr && setPlantaZoomOpen(true)}
+            >
               {!plantaErr ? (
                 <img
                   src={tipologia.planta}
                   alt={`Planta ${tipologia.label}`}
-                  className="w-full object-contain max-h-[600px]"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full object-contain max-h-[600px] group-hover:scale-[1.02] transition-transform duration-500"
                   onError={() => setPlantaErr(true)}
                 />
               ) : (
@@ -200,11 +218,31 @@ export default function EmpreendimentoDetalhe() {
                   <p className="text-zinc-400 text-sm">Planta não disponível para esta tipologia</p>
                 </div>
               )}
+
+              {/* Cue de Ampliar */}
+              {!plantaErr && (
+                <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur border border-white/10 shadow-sm transition-transform group-hover:scale-105">
+                  <ZoomIn className="w-3.5 h-3.5 text-white" />
+                  <span className="text-[11px] font-medium text-white tracking-wide">Ampliar</span>
+                </div>
+              )}
+
               {/* Label na planta */}
               <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur border border-white/10">
                 <span className="text-[11px] text-white/70 font-medium">{tipologia.label}</span>
               </div>
             </div>
+
+            {/* Botão de Download do Caderno de Plantas */}
+            {emp.slug !== 'bosque-das-orquideas' && (
+              <a
+                href="#"
+                className="mt-6 flex items-center justify-center gap-2 px-6 py-3.5 border border-zinc-200 hover:border-zinc-300 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 text-[13px] font-medium transition-colors"
+              >
+                <Download className="w-4 h-4 text-[#1b4332]" />
+                Baixe o caderno de plantas
+              </a>
+            )}
           </div>
 
           {/* Galeria */}
@@ -231,12 +269,26 @@ export default function EmpreendimentoDetalhe() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {emp.galeria[categoriaGaleriaAtiva].imagens.map((img, i) => (
-                  <div key={i} className="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200">
+                  <div 
+                    key={i} 
+                    className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 cursor-pointer group"
+                    onClick={() => {
+                      setImgZoomSrc(img);
+                      setGaleriaZoomOpen(true);
+                    }}
+                  >
                     <ImgWithFallback
                       src={img}
                       alt={`${emp.nome} - ${emp.galeria[categoriaGaleriaAtiva].nome} ${i + 1}`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
+                    {/* Cue de Ampliar */}
+                    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur border border-white/10 shadow-sm transition-transform group-hover:scale-105 opacity-0 group-hover:opacity-100 duration-300">
+                      <ZoomIn className="w-3 h-3 text-white" />
+                      <span className="text-[10px] font-medium text-white tracking-wide">Ampliar</span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -326,6 +378,53 @@ export default function EmpreendimentoDetalhe() {
 
       {/* ── WHATSAPP FLUTUANTE ─────────────────────────────────── */}
       <WhatsAppButton />
+
+      {/* ── MODAL DE PLANTA AMPLIADA ───────────────────────────── */}
+      {plantaZoomOpen && !plantaErr && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8 transition-opacity"
+          onClick={() => setPlantaZoomOpen(false)}
+        >
+          <button 
+            className="absolute top-4 right-4 sm:top-8 sm:right-8 p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
+            onClick={() => setPlantaZoomOpen(false)}
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <img
+            src={tipologia.planta}
+            alt={`Planta Ampliada ${tipologia.label}`}
+            loading="lazy"
+            decoding="async"
+            className="max-w-full max-h-[90vh] object-contain select-none shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
+      {/* ── MODAL DE GALERIA AMPLIADA ───────────────────────────── */}
+      {galeriaZoomOpen && imgZoomSrc && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8 transition-opacity"
+          onClick={() => setGaleriaZoomOpen(false)}
+        >
+          <button 
+            className="absolute top-4 right-4 sm:top-8 sm:right-8 p-2.5 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors z-10"
+            onClick={() => setGaleriaZoomOpen(false)}
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <img
+            src={imgZoomSrc}
+            alt="Imagem Ampliada"
+            loading="lazy"
+            decoding="async"
+            className="max-w-full max-h-[90vh] object-contain select-none shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
     </div>
   );
 }

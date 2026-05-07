@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, BedDouble, Maximize2, Car, MapPin, CheckCircle, Clock } from 'lucide-react';
+import { ArrowUpRight, BedDouble, Maximize2, Car, MapPin, CheckCircle, Clock, MoveRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { empreendimentos, type Empreendimento } from '../data/empreendimentos';
 
 /* ─── Card individual ─────────────────────────────────────── */
@@ -26,7 +26,7 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
       style={{ animationDelay: `${index * 120}ms` }}
     >
       {/* Image area */}
-      <div className="relative h-64 overflow-hidden bg-zinc-100">
+      <div className="relative h-[400px] overflow-hidden bg-zinc-100">
         {!imgError ? (
           <div className="absolute inset-0 w-full h-full transition-transform duration-700 group-hover:scale-105">
             {previewImagens.map((img, i) => (
@@ -36,7 +36,7 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
                 alt={`${emp.nome} - Imagem ${i + 1}`}
                 loading={index === 0 && i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+                className={`absolute inset-0 w-full h-full object-fill transition-opacity duration-1000 ease-in-out ${
                   i === activeImg ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
                 onError={() => setImgError(true)}
@@ -52,14 +52,22 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
         {/* gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-80" />
 
-        {/* Status badge */}
-        <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
-          {emp.status === 'Pronto para Morar'
-            ? <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
-            : <Clock className="w-3.5 h-3.5 text-amber-400" />}
-          <span className="text-[11px] font-semibold tracking-wider uppercase text-white">
-            {emp.status}
-          </span>
+        {/* Top Badges */}
+        <div className="absolute top-4 left-4 right-4 flex flex-col items-start gap-2 z-20">
+          {/* Status badge */}
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 shadow-sm">
+            {emp.status === 'Pronto para Morar'
+              ? <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+              : <Clock className="w-3.5 h-3.5 text-amber-400" />}
+            <span className="text-[11px] font-semibold tracking-wider uppercase text-white">
+              {emp.status}
+            </span>
+          </div>
+
+          {/* Type tag */}
+          <div className="px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-sm shadow-sm">
+            <span className="text-[10px] font-medium tracking-widest uppercase text-white/70">{emp.tipo}</span>
+          </div>
         </div>
 
         {/* Thumbnail dots */}
@@ -80,10 +88,7 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
           </div>
         )}
 
-        {/* Type tag */}
-        <div className="absolute top-4 right-4 px-2.5 py-1 rounded-lg bg-black/50 backdrop-blur-sm">
-          <span className="text-[10px] font-medium tracking-widest uppercase text-white/70">{emp.tipo}</span>
-        </div>
+
       </div>
 
       {/* Content */}
@@ -120,14 +125,6 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
           </div>
         </div>
 
-        {/* Lazer pills */}
-        <div className="flex flex-wrap gap-1.5">
-          {emp.lazer.slice(0, 4).map((item) => (
-            <span key={item} className="px-2.5 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-[11px] text-zinc-600 font-medium">
-              {item}
-            </span>
-          ))}
-        </div>
 
         {/* CTA — Visual apenas */}
         <div
@@ -143,6 +140,17 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
 
 /* ─── Section completa ────────────────────────────────────── */
 export default function EmpreendimentosSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      // Calcula a rolagem considerando um card por vez aproximadamente
+      const scrollTo = direction === 'left' ? scrollLeft - (clientWidth * 0.8) : scrollLeft + (clientWidth * 0.8);
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="empreendimentos" className="relative bg-white py-24 px-6 sm:px-12 md:px-20 overflow-hidden">
       {/* Grid de fundo */}
@@ -159,25 +167,44 @@ export default function EmpreendimentosSection() {
 
       <div className="relative max-w-[1400px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
           <div>
-            <h2 className="font-serif font-light text-4xl sm:text-5xl md:text-[3.5rem] leading-[1.1] tracking-tight text-zinc-900">
+            <h2 className="font-serif font-light text-3xl sm:text-4xl md:text-[2.8rem] leading-[1.1] tracking-tight text-zinc-900">
               Nossos<br />
               <span className="text-[#1b4332]">Empreendimentos</span>
             </h2>
           </div>
-          <p className="max-w-sm text-zinc-500 text-[14px] leading-relaxed md:text-right">
-            Apartamentos e sobrados em localização privilegiada em Goiânia e Aparecida de Goiânia. Qualidade Trípoli em cada detalhe.
-          </p>
         </div>
 
-        {/* Cards */}
-        <div className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none gap-6 pb-8 md:pb-0 -mx-6 px-6 sm:-mx-12 sm:px-12 md:mx-0 md:px-0 md:grid-cols-2 lg:grid-cols-3 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-          {empreendimentos.map((emp, i) => (
-            <div key={emp.id} className="w-[85vw] sm:w-[350px] shrink-0 snap-center md:w-auto md:shrink-1">
-              <EmpreendimentoCard emp={emp} index={i} />
-            </div>
-          ))}
+        <div className="relative group/carousel">
+          {/* Navegação - Setas no meio */}
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-2 top-[40%] -translate-y-1/2 z-30 p-2 sm:p-3 rounded-full bg-black/30 backdrop-blur-md text-white border border-white/20 hover:bg-[#1b4332] transition-all active:scale-95 md:-left-6 opacity-100 sm:opacity-0 sm:group-hover/carousel:opacity-100 flex"
+            aria-label="Anterior"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-2 top-[40%] -translate-y-1/2 z-30 p-2 sm:p-3 rounded-full bg-black/30 backdrop-blur-md text-white border border-white/20 hover:bg-[#1b4332] transition-all active:scale-95 md:-right-6 opacity-100 sm:opacity-0 sm:group-hover/carousel:opacity-100 flex"
+            aria-label="Próximo"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          {/* Cards */}
+          <div
+            ref={scrollRef}
+            className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory md:snap-none gap-6 pb-8 md:pb-0 -mx-6 px-6 sm:-mx-12 sm:px-12 md:mx-0 md:px-0 md:grid-cols-2 lg:grid-cols-3 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+          >
+            {empreendimentos.map((emp, i) => (
+              <div key={emp.id} className="w-[85vw] sm:w-[350px] shrink-0 snap-center md:w-auto md:shrink-1">
+                <EmpreendimentoCard emp={emp} index={i} />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom CTA */}

@@ -210,10 +210,6 @@ export const empreendimentos: Empreendimento[] = [
         categoria: 'Escola',
         locais: [{ nome: 'Colégio WR', lat: -16.7050, lng: -49.2680 }],
       },
-      {
-        categoria: 'Faculdade',
-        locais: [{ nome: 'Faculdade Araguaia', lat: -16.6990, lng: -49.2730 }],
-      },
     ],
     setorInfo: {
       nome: 'Setor Bueno',

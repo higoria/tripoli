@@ -55,6 +55,8 @@ function AwardLogo({ src, alt }: { src: string; alt: string }) {
     <img
       src={src}
       alt={alt}
+      loading="lazy"
+      decoding="async"
       className="max-h-24 max-w-[180px] object-contain mx-auto transition-all duration-300 group-hover:scale-105"
       onError={() => setErr(true)}
     />
@@ -171,6 +173,8 @@ export default function SobreSection() {
               <img
                 src="/images/ilumi-bueno/foto-4.png"
                 alt="Trípoli Construtora"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.onerror = null;

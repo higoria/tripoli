@@ -1,5 +1,5 @@
-import { Instagram, Heart, ExternalLink, ArrowUpRight } from 'lucide-react';
-import { useState } from 'react';
+import { Instagram, Heart, ExternalLink, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useRef } from 'react';
 
 const INSTA_URL = 'https://www.instagram.com/tripoliconstrutora/';
 
@@ -74,6 +74,8 @@ function PostCard({ post }: { post: typeof posts[number] }) {
         <img
           src={post.img}
           alt={post.tag}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={() => setImgErr(true)}
         />
@@ -119,6 +121,16 @@ function PostCard({ post }: { post: typeof posts[number] }) {
 
 /* ── COMPONENTE PRINCIPAL ─────────────────────────────────── */
 export default function InstagramSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' ? scrollLeft - (clientWidth * 0.8) : scrollLeft + (clientWidth * 0.8);
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="instagram" className="relative bg-white border-t border-zinc-200 py-24 px-6 sm:px-12 md:px-20 overflow-hidden">
 
@@ -159,12 +171,34 @@ export default function InstagramSection() {
         </div>
 
         {/* ── CARROSSEL DE POSTS ────────────────────────────── */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3 sm:gap-4 pb-8 -mx-6 px-6 sm:-mx-12 sm:px-12 md:mx-0 md:px-0 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-          {posts.map((post) => (
-            <div key={post.id} className="w-[70vw] sm:w-[280px] md:w-[320px] shrink-0 snap-center md:snap-start">
-              <PostCard post={post} />
-            </div>
-          ))}
+        <div className="relative group/insta">
+          {/* Navegação - Setas no meio */}
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-3 rounded-full bg-black/30 backdrop-blur-md text-white border border-white/20 hover:bg-[#1b4332] transition-all active:scale-95 md:-left-6 opacity-100 sm:opacity-0 sm:group-hover/insta:opacity-100 flex"
+            aria-label="Anterior"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 p-2 sm:p-3 rounded-full bg-black/30 backdrop-blur-md text-white border border-white/20 hover:bg-[#1b4332] transition-all active:scale-95 md:-right-6 opacity-100 sm:opacity-0 sm:group-hover/insta:opacity-100 flex"
+            aria-label="Próximo"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-3 sm:gap-4 pb-8 -mx-6 px-6 sm:-mx-12 sm:px-12 md:mx-0 md:px-0 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+          >
+            {posts.map((post) => (
+              <div key={post.id} className="w-[70vw] sm:w-[280px] md:w-[320px] shrink-0 snap-center md:snap-start">
+                <PostCard post={post} />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* ── CTA BUTTON ───────────────────────────────────── */}

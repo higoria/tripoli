@@ -47,6 +47,8 @@ export function SectorSection({ setorInfo }: SectorSectionProps) {
               key={currentIndex}
               src={setorInfo.imagens[currentIndex]}
               alt={`Vista do ${setorInfo.nome}`}
+              loading="lazy"
+              decoding="async"
               initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}

@@ -22,6 +22,7 @@ const sections: AccordionItem[] = [
       { label: 'Ilumi Bueno', href: '/empreendimento/ilumi-bueno', internal: true },
       { label: 'Ritmo Bueno', href: '/empreendimento/ritmo-bueno', internal: true },
       { label: 'Bosque das Orquídeas', href: '/empreendimento/bosque-das-orquideas', internal: true },
+      { label: 'Todos os Imóveis', href: '/imoveis', internal: true },
     ],
   },
   {
@@ -30,7 +31,7 @@ const sections: AccordionItem[] = [
       { label: 'Quero comprar um imóvel', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20comprar%20um%20imóvel.` },
       { label: 'Quero vender meu terreno', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20vender%20meu%20terreno.` },
       { label: 'Seja um fornecedor', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Gostaria%20de%20ser%20um%20fornecedor.` },
-      { label: 'Sou corretor', href: `${TRIPOLI}/corretores-e-imobiliarias/` },
+      { label: 'Sou corretor', href: '/sou-corretor', internal: true },
     ],
   },
   {
@@ -99,7 +100,7 @@ function AccordionSection({ item }: { item: AccordionItem }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-zinc-100 border-t border-zinc-200">
+    <footer id="contato" className="bg-zinc-100 border-t border-zinc-200">
       <div className="max-w-[1400px] mx-auto px-6 sm:px-12 md:px-20">
 
         {/* ── TOP: Logo + Nav ─────────────────────────────── */}
@@ -112,6 +113,8 @@ export default function Footer() {
               <img
                 src={`/logo.png`}
                 alt="Trípoli Construtora"
+                loading="lazy"
+                decoding="async"
                 className="h-10 object-contain"
                 onError={(e) => {
                   const el = e.target as HTMLImageElement;
@@ -121,7 +124,7 @@ export default function Footer() {
             </div>
 
             <p className="text-[13px] text-zinc-500 leading-relaxed max-w-[240px]">
-              Inovando na arte de construir. Mais de 21 anos transformando sonhos em endereços.
+              Inovando na arte de construir. Mais de 25 anos transformando sonhos em endereços.
             </p>
 
             {/* Endereço */}
@@ -130,9 +133,13 @@ export default function Footer() {
               <span>Rua 10, nº 1057 — Setor Oeste<br />Goiânia — GO · CEP 74.120-020</span>
             </div>
 
-            <div className="flex items-center gap-2 text-zinc-500 text-[12px]">
-              <Phone className="w-3.5 h-3.5 text-[#1b4332]/60 flex-shrink-0" />
-              <span>(62) 98160-0202 · (62) 3941-3060</span>
+            <div className="flex items-start gap-2 text-zinc-500 text-[12px]">
+              <Phone className="w-3.5 h-3.5 text-[#1b4332]/60 flex-shrink-0 mt-0.5" />
+              <div className="flex flex-col gap-1">
+                <span>Central: (62) 3941-3060</span>
+                <span>Administrativo: (62) 98121-4394</span>
+                <span>Comercial: (62) 98160-0202</span>
+              </div>
             </div>
 
             {/* Social icons */}

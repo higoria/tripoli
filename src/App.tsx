@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Hexagon, Menu, X } from 'lucide-react';
-import EmpreendimentosSection from './components/EmpreendimentosSection';
-import InstagramSection from './components/InstagramSection';
-import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
+
+const EmpreendimentosSection = lazy(() => import('./components/EmpreendimentosSection'));
+const InstagramSection = lazy(() => import('./components/InstagramSection'));
+const Footer = lazy(() => import('./components/Footer'));
+const WhatsAppButton = lazy(() => import('./components/WhatsAppButton'));
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -54,7 +55,10 @@ export default function App() {
               <a href="#" className="hover:text-white transition-colors">Home</a>
               <a href="#empreendimentos" className="hover:text-white transition-colors">Empreendimentos</a>
               <Link to="/sobre" className="hover:text-white transition-colors">A Trípoli</Link>
-              <a href="#" className="hover:text-white transition-colors">Contato</a>
+              <a href="#contato" className="hover:text-white transition-colors">Contato</a>
+              <button className="px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-[#1b4332] transition-all font-semibold">
+                Simular Financiamento
+              </button>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -84,7 +88,8 @@ export default function App() {
                   { name: 'Home', href: '#', isRouter: false },
                   { name: 'Empreendimentos', href: '#empreendimentos', isRouter: false },
                   { name: 'A Trípoli', href: '/sobre', isRouter: true },
-                  { name: 'Contato', href: '#', isRouter: false },
+                  { name: 'Contato', href: '#contato', isRouter: false },
+                  { name: 'Simular Financiamento', href: '#', isRouter: false },
                 ].map((item, i) => (
                   item.isRouter ? (
                     <Link
@@ -117,9 +122,9 @@ export default function App() {
           </header>
 
           {/* Hero Central Content */}
-          <main className="flex-1 flex flex-col items-center justify-center text-center w-full pt-10 pb-10">
-            <h1 className="font-serif font-light text-4xl sm:text-5xl md:text-6xl lg:text-[5.5rem] leading-[1.1] tracking-[-0.03em] mb-8 max-w-5xl mx-auto">
-              <span className="block text-white">Encontre imóveis e conquiste</span>
+          <main className="flex-1 flex flex-col items-center justify-center text-center w-full pt-20 pb-10">
+            <h1 className="font-serif font-light text-3xl sm:text-4xl md:text-5xl lg:text-[4.8rem] leading-[1.1] tracking-[-0.03em] mb-8 max-w-5xl mx-auto">
+              <span className="block text-white">Conquiste</span>
               <span className="block text-[#4ade80] mt-1 lg:mt-3">o espaço dos seus sonhos.</span>
             </h1>
 
@@ -140,17 +145,19 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── SECTION 2: EMPREENDIMENTOS ─────────────────────── */}
-      <EmpreendimentosSection />
+      <Suspense fallback={<div className="h-20" />}>
+        {/* ── SECTION 2: EMPREENDIMENTOS ─────────────────────── */}
+        <EmpreendimentosSection />
 
-      {/* ── SECTION 3: INSTAGRAM ──────────────────────────────── */}
-      <InstagramSection />
+        {/* ── SECTION 3: INSTAGRAM ──────────────────────────────── */}
+        <InstagramSection />
 
-      {/* ── FOOTER ─────────────────────────────────────────────── */}
-      <Footer />
+        {/* ── FOOTER ─────────────────────────────────────────────── */}
+        <Footer />
 
-      {/* ── WHATSAPP FLUTUANTE ─────────────────────────────────── */}
-      <WhatsAppButton />
+        {/* ── WHATSAPP FLUTUANTE ─────────────────────────────────── */}
+        <WhatsAppButton />
+      </Suspense>
     </div>
   );
 }

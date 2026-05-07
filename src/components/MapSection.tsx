@@ -6,6 +6,17 @@ import 'leaflet/dist/leaflet.css';
 import { Empreendimento } from '../data/empreendimentos';
 import { HeartPulse, Coffee, ShoppingCart, Plus, GraduationCap, Building2, LucideIcon } from 'lucide-react';
 
+const WazeIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3c4.4 0 8 3.6 8 8s-3.6 8-8 8c-1.3 0-2.6-.3-3.7-.9l-3.8 1.1c-.5.1-.9-.3-.8-.8l1.1-3.8c-.6-1.1-.9-2.4-.9-3.7 0-4.4 3.6-8 8-8z" fill="white" />
+    <circle cx="8.5" cy="19.5" r="2" fill="currentColor" stroke="none" />
+    <circle cx="15.5" cy="19.5" r="2" fill="currentColor" stroke="none" />
+    <circle cx="9" cy="10" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="10" r="1.2" fill="currentColor" stroke="none" />
+    <path d="M9 14c1 1.5 5 1.5 6 0" />
+  </svg>
+);
+
 // Fix for default Leaflet icon paths in some bundlers
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -81,7 +92,36 @@ export function MapSection({ empreendimento }: MapSectionProps) {
 
   return (
     <div className="mt-16">
-      <h2 className="font-serif text-2xl font-light text-zinc-900 mb-6">Localização e Conveniências</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <h2 className="font-serif text-2xl font-light text-zinc-900">Localização e Conveniências</h2>
+        
+        <div className="flex flex-col gap-3 w-full sm:w-[320px] mt-4 sm:mt-0">
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${localizacao.lat},${localizacao.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 px-6 py-4 border border-zinc-800 rounded-full bg-white hover:bg-zinc-50 text-zinc-800 text-[12px] font-semibold tracking-[0.05em] transition-all uppercase w-full group"
+          >
+            <img 
+              src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg" 
+              alt="Google Maps" 
+              loading="lazy"
+              decoding="async"
+              className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" 
+            />
+            Acessar Google Maps
+          </a>
+          <a
+            href={`https://waze.com/ul?ll=${localizacao.lat},${localizacao.lng}&navigate=yes`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 px-6 py-4 border border-zinc-800 rounded-full bg-white hover:bg-zinc-50 text-zinc-800 text-[12px] font-semibold tracking-[0.05em] transition-all uppercase w-full group"
+          >
+            <WazeIcon className="w-[18px] h-[18px] text-zinc-800 group-hover:scale-110 transition-transform" />
+            Acessar Waze
+          </a>
+        </div>
+      </div>
       
       {/* Tabs / Legendas */}
       {pontosDeInteresse && pontosDeInteresse.length > 0 && (

@@ -21,6 +21,13 @@ export default defineConfig(({mode}) => {
       hmr: process.env.DISABLE_HMR !== 'true',
     },
     build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
       // Não gera source maps em produção (reduz tamanho do build)
       sourcemap: false,
       // Avisa se um chunk passar de 500KB
