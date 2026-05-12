@@ -72,7 +72,7 @@ export default function EmpreendimentoDetalhe() {
   const tipologia = emp.tipologias[tipologiaAtiva];
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white">
 
       {/* ── HEADER ─────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
@@ -106,14 +106,26 @@ export default function EmpreendimentoDetalhe() {
       </header>
 
       {/* ── HERO DO EMPREENDIMENTO ─────────────────────────── */}
-      <section className="relative h-[55vh] min-h-[380px] overflow-hidden">
-        <ImgWithFallback
-          src={emp.heroImg}
-          alt={emp.nome}
-          loading="eager"
-          decoding="sync"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <section className="relative h-[75vh] min-h-[500px] overflow-hidden">
+        {emp.heroVideo ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={`absolute inset-0 w-full h-full object-cover object-center ${emp.heroVideoClassName || ''}`}
+          >
+            <source src={emp.heroVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <ImgWithFallback
+            src={emp.heroImg}
+            alt={emp.nome}
+            loading="eager"
+            decoding="sync"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        )}
         {/* Gradiente escuro para legibilidade do texto branco em cima da foto */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
@@ -133,16 +145,9 @@ export default function EmpreendimentoDetalhe() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="absolute bottom-0 left-0 right-0 px-6 sm:px-12 pb-10 max-w-[1400px] mx-auto"
         >
-          <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-400 mb-3">
-            {emp.tipo} · Trípoli Construtora
-          </p>
-          <h1 className="font-serif font-light text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight text-white">
+          <h1 className="font-serif font-light text-3xl sm:text-4xl md:text-5xl leading-[1.05] tracking-tight text-white">
             {emp.nome}
           </h1>
-          <div className="flex items-center gap-1.5 mt-3 text-white/50">
-            <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-[#4ade80]/60" />
-            <span className="text-[13px]">{emp.endereco}</span>
-          </div>
         </motion.div>
       </section>
 
@@ -172,6 +177,24 @@ export default function EmpreendimentoDetalhe() {
               </div>
             ))}
           </div>
+
+          {/* Vídeo de Apresentação */}
+          {emp.presentationVideo && (
+            <div className="mb-4">
+              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-6">Apresentação</h2>
+              <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-black shadow-sm">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  className="w-full max-h-[60vh] object-contain"
+                  src={emp.presentationVideo}
+                />
+              </div>
+            </div>
+          )}
 
           {/* ── SELECTOR DE PLANTAS ──────────────────────── */}
           <div>
@@ -305,8 +328,6 @@ export default function EmpreendimentoDetalhe() {
                 ))}
               </div>
             </div>
-          )}
-
           )}
 
         </motion.div>

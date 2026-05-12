@@ -161,10 +161,10 @@ export function MapSection({ empreendimento }: MapSectionProps) {
           scrollWheelZoom={false}
           style={{ width: '100%', height: '100%', zIndex: 0 }}
         >
-          {/* CartoDB Positron - Light Theme Map */}
+          {/* Google Maps - Satellite/Hybrid Theme Map */}
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; Google Maps'
+            url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
           />
           
           {/* Main Property Marker */}

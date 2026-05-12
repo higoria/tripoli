@@ -22,7 +22,7 @@ export default function App() {
   }, [isMenuOpen]);
 
   return (
-    <div className="bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white overflow-x-hidden">
+    <div className="bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white">
 
       {/* ── SECTION 1: HERO ─────────────────────────────────── */}
       <section className="relative h-[85vh] min-h-[600px] flex flex-col overflow-hidden">

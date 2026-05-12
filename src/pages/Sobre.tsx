@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
 export default function Sobre() {
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white flex flex-col overflow-x-hidden">
+    <div className="min-h-screen bg-[#f8fafc] text-zinc-900 font-sans selection:bg-[#1b4332] selection:text-white flex flex-col">
       {/* ── HEADER ─────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
         <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-4 flex items-center justify-between gap-4">
