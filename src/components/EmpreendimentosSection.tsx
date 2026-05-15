@@ -43,7 +43,7 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
                 alt={`${emp.nome} - Imagem ${i + 1}`}
                 loading={index === 0 && i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
-                className={`absolute inset-0 w-full h-full object-fill transition-opacity duration-1000 ease-in-out ${
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
                   i === activeImg ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
                 onError={() => setImgError(true)}

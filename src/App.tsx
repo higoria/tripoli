@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Hexagon, Menu, X } from 'lucide-react';
@@ -9,6 +9,15 @@ const Footer = lazy(() => import('./components/Footer'));
 const WhatsAppButton = lazy(() => import('./components/WhatsAppButton'));
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.defaultMuted = true;
+      heroVideoRef.current.muted = true;
+      heroVideoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
+    }
+  }, []);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -29,6 +38,7 @@ export default function App() {
 
         {/* Video Background */}
         <video
+          ref={heroVideoRef}
           autoPlay
           loop
           muted

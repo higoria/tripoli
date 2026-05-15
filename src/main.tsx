@@ -10,6 +10,8 @@ const EmpreendimentoDetalhe = lazy(() => import('./pages/EmpreendimentoDetalhe.t
 const Sobre = lazy(() => import('./pages/Sobre.tsx'));
 const TrabalheConosco = lazy(() => import('./pages/TrabalheConosco.tsx'));
 const SouCorretor = lazy(() => import('./pages/SouCorretor.tsx'));
+const VenderTerreno = lazy(() => import('./pages/VenderTerreno.tsx'));
+const SejaFornecedor = lazy(() => import('./pages/SejaFornecedor.tsx'));
 
 // Sempre rola para o topo ao trocar de rota
 function ScrollToTop() {
@@ -32,6 +34,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/trabalhe-conosco" element={<TrabalheConosco />} />
           <Route path="/empreendimento/:slug" element={<EmpreendimentoDetalhe />} />
           <Route path="/sou-corretor" element={<SouCorretor />} />
+          <Route path="/vender-terreno" element={<VenderTerreno />} />
+          <Route path="/seja-fornecedor" element={<SejaFornecedor />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

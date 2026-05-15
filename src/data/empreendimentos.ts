@@ -31,6 +31,7 @@ export interface Empreendimento {
   bairro: string;
   cidade: string;
   endereco: string;
+  enderecoCurto?: string;
   descricao: string;
   descricaoLonga: string;
   heroImg: string;
@@ -69,6 +70,7 @@ export const empreendimentos: Empreendimento[] = [
     bairro: 'Setor Bueno',
     cidade: 'Goiânia — GO',
     endereco: 'Rua T-37, Qd. 147, Lotes 14/15 — Setor Bueno, Goiânia',
+    enderecoCurto: 'Rua T-37. Lotes 14/15, Setor Bueno.',
     descricao: 'Sofisticação e natureza integradas em pleno Setor Bueno.',
     descricaoLonga:
       'O Ilumi Bueno une arquitetura contemporânea e áreas verdes exuberantes em um dos bairros mais valorizados de Goiânia. Com 36 andares e apenas 5 apartamentos por andar, o empreendimento garante privacidade e exclusividade para quem busca o melhor em qualidade de vida. O rooftop com piscina e vista panorâmica é o ponto alto do projeto.',
@@ -204,7 +206,7 @@ export const empreendimentos: Empreendimento[] = [
         locais: [{ nome: 'Padaria Modelo', lat: -16.7040, lng: -49.2720 }],
       },
       {
-        categoria: 'Supermercado',
+        categoria: 'Mercado',
         locais: [{ nome: 'Supermercado Bretas', lat: -16.7000, lng: -49.2750 }],
       },
       {
@@ -236,6 +238,7 @@ export const empreendimentos: Empreendimento[] = [
     bairro: 'Setor Bueno',
     cidade: 'Goiânia — GO',
     endereco: 'Rua T-37, Qd. 147, nº 3.449, Lotes 16/17 — Setor Bueno, Goiânia',
+    enderecoCurto: 'Rua T-37. N 3.449, Setor Bueno.',
     descricao: 'Para cada estilo de vida, um apartamento no coração do Bueno.',
     descricaoLonga:
       'O Ritmo Bueno oferece a maior variedade de tipologias entre os empreendimentos da Trípoli, com opções do studio ao 3 quartos. São 32 andares, 8 apartamentos por andar e 3 elevadores, garantindo agilidade e conforto no dia a dia. Localizado lado a lado com o Ilumi Bueno, no coração do Setor Bueno.',
@@ -349,12 +352,16 @@ export const empreendimentos: Empreendimento[] = [
         locais: [{ nome: 'Panificadora Mundial', lat: -16.7045, lng: -49.2690 }],
       },
       {
-        categoria: 'Supermercado',
+        categoria: 'Mercado',
         locais: [{ nome: 'Pão de Açúcar', lat: -16.7070, lng: -49.2730 }],
       },
       {
         categoria: 'Farmácia',
         locais: [{ nome: 'Drogaria Pacheco', lat: -16.7040, lng: -49.2720 }],
+      },
+      {
+        categoria: 'Escola',
+        locais: [{ nome: 'Colégio WR', lat: -16.7050, lng: -49.2680 }],
       },
     ],
     setorInfo: {
@@ -377,6 +384,7 @@ export const empreendimentos: Empreendimento[] = [
     bairro: 'Sítios Santa Luzia',
     cidade: 'Aparecida de Goiânia — GO',
     endereco: 'Rua X-028 — Sítios Santa Luzia, Aparecida de Goiânia',
+    enderecoCurto: 'Rua X-028. Sítios Santa Luzia.',
     descricao: 'Sobrados prontos em condomínio fechado com bosque privativo.',
     descricaoLonga:
       'O Bosque das Orquídeas é um condomínio fechado de sobrados com 64 unidades distribuídas em meio a área verde preservada. Com portaria 24 horas, piscina, salão de festas e bosque privativo, o empreendimento oferece segurança e qualidade de vida para toda a família. Pronto para morar agora.',
@@ -448,7 +456,11 @@ export const empreendimentos: Empreendimento[] = [
     },
     pontosDeInteresse: [
       {
-        categoria: 'Supermercado',
+        categoria: 'Hospital',
+        locais: [{ nome: 'Hospital Aparecida', lat: -16.7715, lng: -49.2450 }],
+      },
+      {
+        categoria: 'Mercado',
         locais: [{ nome: 'Atacadão', lat: -16.7700, lng: -49.2400 }],
       },
       {

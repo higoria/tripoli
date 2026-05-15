@@ -30,8 +30,8 @@ const sections: AccordionItem[] = [
     title: 'Fale Conosco',
     links: [
       { label: 'Quero comprar um imóvel', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20comprar%20um%20imóvel.` },
-      { label: 'Quero vender meu terreno', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20vender%20meu%20terreno.` },
-      { label: 'Seja um fornecedor', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Gostaria%20de%20ser%20um%20fornecedor.` },
+      { label: 'Quero vender meu terreno', href: '/vender-terreno', internal: true },
+      { label: 'Seja um fornecedor', href: '/seja-fornecedor', internal: true },
       { label: 'Sou corretor', href: '/sou-corretor', internal: true },
     ],
   },

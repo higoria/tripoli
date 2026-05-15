@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
@@ -9,6 +9,7 @@ import {
   MapPin,
   CheckCircle,
   Clock,
+  ChevronLeft,
   ChevronRight,
   Phone,
   ZoomIn,
@@ -21,6 +22,17 @@ import { MapSection } from '../components/MapSection';
 import { SectorSection } from '../components/SectorSection';
 
 const BASE_TRIPOLI = 'http://www.tripoliconstrutora.com.br';
+
+const WazeIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3c4.4 0 8 3.6 8 8s-3.6 8-8 8c-1.3 0-2.6-.3-3.7-.9l-3.8 1.1c-.5.1-.9-.3-.8-.8l1.1-3.8c-.6-1.1-.9-2.4-.9-3.7 0-4.4 3.6-8 8-8z" fill="white" />
+    <circle cx="8.5" cy="19.5" r="2" fill="currentColor" stroke="none" />
+    <circle cx="15.5" cy="19.5" r="2" fill="currentColor" stroke="none" />
+    <circle cx="9" cy="10" r="1.2" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="10" r="1.2" fill="currentColor" stroke="none" />
+    <path d="M9 14c1 1.5 5 1.5 6 0" />
+  </svg>
+);
 
 /* ── Placeholder quando imagem falha ─────────────────────── */
 function ImgWithFallback({
@@ -57,7 +69,16 @@ export default function EmpreendimentoDetalhe() {
   const [categoriaGaleriaAtiva, setCategoriaGaleriaAtiva] = useState(0);
   const [plantaZoomOpen, setPlantaZoomOpen] = useState(false);
   const [galeriaZoomOpen, setGaleriaZoomOpen] = useState(false);
-  const [imgZoomSrc, setImgZoomSrc] = useState('');
+  const [galeriaImgIndex, setGaleriaImgIndex] = useState(0);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.defaultMuted = true;
+      heroVideoRef.current.muted = true;
+      heroVideoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
+    }
+  }, [emp?.heroVideo]);
 
 
   if (!emp) {
@@ -109,6 +130,7 @@ export default function EmpreendimentoDetalhe() {
       <section className="relative h-[75vh] min-h-[500px] overflow-hidden">
         {emp.heroVideo ? (
           <video
+            ref={heroVideoRef}
             autoPlay
             loop
             muted
@@ -138,16 +160,20 @@ export default function EmpreendimentoDetalhe() {
           <span className="text-[11px] font-semibold tracking-wider uppercase text-white">{emp.status}</span>
         </div>
 
-        {/* Título sobre a imagem */}
+        {/* Título sobre a imagem e Endereço */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="absolute bottom-0 left-0 right-0 px-6 sm:px-12 pb-10 max-w-[1400px] mx-auto"
         >
-          <h1 className="font-serif font-light text-3xl sm:text-4xl md:text-5xl leading-[1.05] tracking-tight text-white">
+          <h1 className="font-serif font-light text-2xl sm:text-3xl md:text-4xl leading-[1.05] tracking-tight text-white">
             {emp.nome}
           </h1>
+          <div className="mt-3 flex items-center gap-2 text-white/90 text-sm sm:text-base font-light tracking-wide drop-shadow-md">
+            <MapPin className="w-4 h-4 text-white/80" />
+            <span>{emp.enderecoCurto || emp.endereco}</span>
+          </div>
         </motion.div>
       </section>
 
@@ -184,9 +210,6 @@ export default function EmpreendimentoDetalhe() {
               <h2 className="font-serif text-2xl font-light text-zinc-900 mb-6">Apresentação</h2>
               <div className="relative rounded-2xl overflow-hidden border border-zinc-200 bg-black shadow-sm">
                 <video
-                  autoPlay
-                  loop
-                  muted
                   playsInline
                   controls
                   className="w-full max-h-[60vh] object-contain"
@@ -303,29 +326,42 @@ export default function EmpreendimentoDetalhe() {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {emp.galeria[categoriaGaleriaAtiva].imagens.map((img, i) => (
-                  <div 
-                    key={i} 
-                    className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 cursor-pointer group"
-                    onClick={() => {
-                      setImgZoomSrc(img);
-                      setGaleriaZoomOpen(true);
-                    }}
-                  >
-                    <ImgWithFallback
-                      src={img}
-                      alt={`${emp.nome} - ${emp.galeria[categoriaGaleriaAtiva].nome} ${i + 1}`}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {/* Cue de Ampliar */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur border border-white/10 shadow-sm transition-transform group-hover:scale-105 opacity-0 group-hover:opacity-100 duration-300">
-                      <ZoomIn className="w-3 h-3 text-white" />
-                      <span className="text-[10px] font-medium text-white tracking-wide">Ampliar</span>
+                {emp.galeria[categoriaGaleriaAtiva].imagens.slice(0, 8).map((img, i) => {
+                  const isUltima = i === 7;
+                  const excedente = emp.galeria[categoriaGaleriaAtiva].imagens.length - 8;
+                  const mostraOverlayExcedente = isUltima && excedente > 0;
+                  
+                  return (
+                    <div 
+                      key={i} 
+                      className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 cursor-pointer group"
+                      onClick={() => {
+                        setGaleriaImgIndex(i);
+                        setGaleriaZoomOpen(true);
+                      }}
+                    >
+                      <ImgWithFallback
+                        src={img}
+                        alt={`${emp.nome} - ${emp.galeria[categoriaGaleriaAtiva].nome} ${i + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      
+                      {mostraOverlayExcedente ? (
+                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white transition-colors group-hover:bg-black/60">
+                          <span className="text-2xl sm:text-3xl font-light">+{excedente}</span>
+                          <span className="text-[11px] sm:text-[13px] font-medium tracking-wide uppercase mt-1">Imagens</span>
+                        </div>
+                      ) : (
+                        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur border border-white/10 shadow-sm transition-transform group-hover:scale-105 opacity-0 group-hover:opacity-100 duration-300">
+                          <ZoomIn className="w-3 h-3 text-white" />
+                          <span className="text-[10px] font-medium text-white tracking-wide">Ampliar</span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -393,6 +429,35 @@ export default function EmpreendimentoDetalhe() {
               <MapPin className="w-4 h-4 text-[#1b4332]/60 flex-shrink-0 mt-0.5" />
               {emp.endereco}
             </div>
+
+            {emp.localizacao && (
+              <div className="mt-5 flex flex-col gap-2.5">
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${emp.localizacao.lat},${emp.localizacao.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl border border-zinc-200 hover:border-zinc-300 bg-zinc-50 text-[13px] text-zinc-600 hover:text-zinc-900 transition-all duration-200 group"
+                >
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg" 
+                    alt="Google Maps" 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-[15px] h-[15px] group-hover:scale-110 transition-transform" 
+                  />
+                  Como chegar com Google Maps
+                </a>
+                <a
+                  href={`https://waze.com/ul?ll=${emp.localizacao.lat},${emp.localizacao.lng}&navigate=yes`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl border border-zinc-200 hover:border-zinc-300 bg-zinc-50 text-[13px] text-zinc-600 hover:text-zinc-900 transition-all duration-200 group"
+                >
+                  <WazeIcon className="w-[15px] h-[15px] text-zinc-600 group-hover:scale-110 transition-transform" />
+                  Como chegar com Waze
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Ver site oficial */}
@@ -432,6 +497,19 @@ export default function EmpreendimentoDetalhe() {
           >
             <X className="w-6 h-6" />
           </button>
+
+          {emp.tipologias.length > 1 && (
+            <button
+              className="absolute left-4 sm:left-12 p-2 rounded-full bg-white text-[#1b4332] shadow-xl hover:scale-105 transition-all z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setTipologiaAtiva((prev) => (prev === 0 ? emp.tipologias.length - 1 : prev - 1));
+              }}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+
           <img
             src={tipologia.planta}
             alt={`Planta Ampliada ${tipologia.label}`}
@@ -440,11 +518,23 @@ export default function EmpreendimentoDetalhe() {
             className="max-w-full max-h-[90vh] object-contain select-none shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
+
+          {emp.tipologias.length > 1 && (
+            <button
+              className="absolute right-4 sm:right-12 p-2 rounded-full bg-white text-[#1b4332] shadow-xl hover:scale-105 transition-all z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setTipologiaAtiva((prev) => (prev === emp.tipologias.length - 1 ? 0 : prev + 1));
+              }}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
         </div>
       )}
 
       {/* ── MODAL DE GALERIA AMPLIADA ───────────────────────────── */}
-      {galeriaZoomOpen && imgZoomSrc && (
+      {galeriaZoomOpen && (
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8 transition-opacity"
           onClick={() => setGaleriaZoomOpen(false)}
@@ -455,14 +545,39 @@ export default function EmpreendimentoDetalhe() {
           >
             <X className="w-6 h-6" />
           </button>
+
+          {emp.galeria[categoriaGaleriaAtiva].imagens.length > 1 && (
+            <button
+              className="absolute left-4 sm:left-12 p-2 rounded-full bg-white text-[#1b4332] shadow-xl hover:scale-105 transition-all z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setGaleriaImgIndex((prev) => (prev === 0 ? emp.galeria[categoriaGaleriaAtiva].imagens.length - 1 : prev - 1));
+              }}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+
           <img
-            src={imgZoomSrc}
+            src={emp.galeria[categoriaGaleriaAtiva].imagens[galeriaImgIndex]}
             alt="Imagem Ampliada"
             loading="lazy"
             decoding="async"
             className="max-w-full max-h-[90vh] object-contain select-none shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
+
+          {emp.galeria[categoriaGaleriaAtiva].imagens.length > 1 && (
+            <button
+              className="absolute right-4 sm:right-12 p-2 rounded-full bg-white text-[#1b4332] shadow-xl hover:scale-105 transition-all z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                setGaleriaImgIndex((prev) => (prev === emp.galeria[categoriaGaleriaAtiva].imagens.length - 1 ? 0 : prev + 1));
+              }}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
         </div>
       )}
 
