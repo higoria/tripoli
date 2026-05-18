@@ -43,6 +43,8 @@ export default function App() {
           loop
           muted
           playsInline
+          defaultMuted
+          preload="auto"
           disablePictureInPicture
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
