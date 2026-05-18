@@ -171,7 +171,7 @@ export default function EmpreendimentosSection() {
       />
 
       {/* Ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#1b4332]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#1b4332]/5 rounded-full blur-[120px] pointer-events-none will-change-transform transform-gpu" />
 
       <div className="relative max-w-[1400px] mx-auto">
         {/* Header */}

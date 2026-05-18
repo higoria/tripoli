@@ -43,6 +43,7 @@ export default function App() {
           loop
           muted
           playsInline
+          disablePictureInPicture
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src="/banner.mp4" type="video/mp4" />
@@ -67,9 +68,9 @@ export default function App() {
               <a href="#empreendimentos" className="hover:text-white transition-colors">Empreendimentos</a>
               <Link to="/sobre" className="hover:text-white transition-colors">A Trípoli</Link>
               <a href="#contato" className="hover:text-white transition-colors">Contato</a>
-              <button className="px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-[#1b4332] transition-all font-semibold">
+              <Link to="/simular-financiamento" className="px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white hover:text-[#1b4332] transition-all font-semibold">
                 Simular Financiamento
-              </button>
+              </Link>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -100,7 +101,7 @@ export default function App() {
                   { name: 'Empreendimentos', href: '#empreendimentos', isRouter: false },
                   { name: 'A Trípoli', href: '/sobre', isRouter: true },
                   { name: 'Contato', href: '#contato', isRouter: false },
-                  { name: 'Simular Financiamento', href: '#', isRouter: false },
+                  { name: 'Simular Financiamento', href: '/simular-financiamento', isRouter: true },
                 ].map((item, i) => (
                   item.isRouter ? (
                     <Link

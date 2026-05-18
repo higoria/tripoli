@@ -135,6 +135,8 @@ export default function EmpreendimentoDetalhe() {
             loop
             muted
             playsInline
+            disablePictureInPicture
+            poster={emp.heroImg}
             className={`absolute inset-0 w-full h-full object-cover object-center ${emp.heroVideoClassName || ''}`}
           >
             <source src={emp.heroVideo} type="video/mp4" />
@@ -212,6 +214,9 @@ export default function EmpreendimentoDetalhe() {
                 <video
                   playsInline
                   controls
+                  preload="none"
+                  poster={emp.heroImg}
+                  disablePictureInPicture
                   className="w-full max-h-[60vh] object-contain"
                   src={emp.presentationVideo}
                 />

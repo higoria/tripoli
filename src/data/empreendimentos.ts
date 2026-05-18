@@ -76,7 +76,7 @@ export const empreendimentos: Empreendimento[] = [
       'O Ilumi Bueno une arquitetura contemporânea e áreas verdes exuberantes em um dos bairros mais valorizados de Goiânia. Com 36 andares e apenas 5 apartamentos por andar, o empreendimento garante privacidade e exclusividade para quem busca o melhor em qualidade de vida. O rooftop com piscina e vista panorâmica é o ponto alto do projeto.',
     heroImg: '/images/ilumi-bueno/hero.jpg',
     heroVideo: '/videoIlumiBuenoBannerSectionOFC.mp4',
-    heroVideoClassName: 'scale-[1.4] md:scale-[1.5]',
+    heroVideoClassName: '!object-center',
     galeria: [
       {
         nome: 'Lugares do prédio',
@@ -389,8 +389,8 @@ export const empreendimentos: Empreendimento[] = [
     descricaoLonga:
       'O Bosque das Orquídeas é um condomínio fechado de sobrados com 64 unidades distribuídas em meio a área verde preservada. Com portaria 24 horas, piscina, salão de festas e bosque privativo, o empreendimento oferece segurança e qualidade de vida para toda a família. Pronto para morar agora.',
     heroImg: '/images/bosque-das-orquideas/hero.jpg',
-    heroVideo: '/videoBosquebanner.mp4',
-    heroVideoClassName: 'scale-[1.4] md:scale-[1.5]',
+    heroVideo: '/Video Project 33.mp4',
+    heroVideoClassName: '!object-bottom',
     presentationVideo: '/video-bosque.mp4',
     galeria: [
       {

@@ -93,7 +93,7 @@ export default function GlobalHeader() {
               { name: 'Empreendimentos', href: '/#empreendimentos', isRouter: false },
               { name: 'A Trípoli', href: '/sobre', isRouter: true },
               { name: 'Contato', href: '/#contato', isRouter: false },
-              { name: 'Simular Financiamento', href: '#', isRouter: false },
+              { name: 'Simular Financiamento', href: '/simular-financiamento', isRouter: true },
             ].map((item, i) => (
               item.isRouter ? (
                 <Link
