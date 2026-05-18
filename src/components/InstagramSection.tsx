@@ -8,7 +8,7 @@ const INSTA_URL = 'https://www.instagram.com/tripoliconstrutora/';
 const posts = [
   {
     id: 1,
-    img: '/images/ilumi-bueno/foto-4.png',
+    img: '/insta1.jpg',
     caption: 'Ilumi Bueno — Sofisticação e natureza no coração do Setor Bueno. 36 andares de pura elegância. 🌿 #IlumiBueno #TrípoliConstrutora',
     likes: '1.2k',
     link: `${INSTA_URL}p/DXEqEKICOJF/`,
@@ -16,7 +16,7 @@ const posts = [
   },
   {
     id: 2,
-    img: '/images/ritmo-bueno/foto-2.jpg',
+    img: '/insta2.jpg',
     caption: 'Ritmo Bueno — Para cada estilo de vida, um apartamento perfeito. Do studio ao 3 quartos. 🏢 #RitmoBueno',
     likes: '987',
     link: `${INSTA_URL}p/DXJzsgSjeUW/`,
@@ -24,7 +24,7 @@ const posts = [
   },
   {
     id: 3,
-    img: '/images/bosque-das-orquideas/hero.jpg',
+    img: '/insta3.jpg',
     caption: 'Bosque das Orquídeas — Condomínio fechado com bosque privativo e lazer completo. Pronto para morar! 🌳 #BosqueOrquideas',
     likes: '854',
     link: `${INSTA_URL}p/DXO9ZPkk8To/`,
@@ -32,7 +32,7 @@ const posts = [
   },
   {
     id: 4,
-    img: '/images/ilumi-bueno/foto-2.png',
+    img: '/insta4.jpg',
     caption: 'Detalhes que fazem a diferença. Cada projeto Trípoli é pensado do alicerce ao acabamento. ✨ #TrípoliConstrutora #Qualidade',
     likes: '1.1k',
     link: INSTA_URL,
