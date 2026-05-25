@@ -69,17 +69,17 @@ export const empreendimentos: Empreendimento[] = [
     status: 'Pronto para Morar',
     bairro: 'Setor Bueno',
     cidade: 'Goiânia — GO',
-    endereco: 'Rua T-37, Qd. 147, Lotes 14/15 — Setor Bueno, Goiânia',
-    enderecoCurto: 'Rua T-37. Lotes 14/15, Setor Bueno.',
-    descricao: 'Sofisticação e natureza integradas em pleno Setor Bueno.',
+    endereco: 'R. T, 37 - QD 147 , LT 18/19/20 , N° 3457 - St. Bueno, Goiânia - GO, 74230-022',
+    enderecoCurto: 'Rua T-37, N° 3457, Setor Bueno.',
+    descricao: 'Iluminação natural, amplitude e uma vista privilegiada no alto do Bueno.',
     descricaoLonga:
       'O Ilumi Bueno une arquitetura contemporânea e áreas verdes exuberantes em um dos bairros mais valorizados de Goiânia. Com 36 andares e apenas 5 apartamentos por andar, o empreendimento garante privacidade e exclusividade para quem busca o melhor em qualidade de vida. O rooftop com piscina e vista panorâmica é o ponto alto do projeto.',
     heroImg: '/images/ilumi-bueno/hero.jpg',
     heroVideo: '/videoIlumiBuenoBannerSectionOFC.mp4',
-    heroVideoClassName: '!object-center',
+    heroVideoClassName: '!object-cover scale-[1.35] md:scale-125',
     galeria: [
       {
-        nome: 'Lugares do prédio',
+        nome: 'Area comum / Lazer',
         imagens: [
           '/images/ilumi-bueno/area-comum/01 - Fachada frente.jpg',
           '/images/ilumi-bueno/area-comum/01 - Fachada 2.jpg',
@@ -89,11 +89,6 @@ export const empreendimentos: Empreendimento[] = [
           '/images/ilumi-bueno/area-comum/14 - vista aerea (8).jpg',
           '/images/ilumi-bueno/area-comum/14 - vista aerea (9).jpg',
           '/images/ilumi-bueno/area-comum/14 - vista aerea (11).jpg',
-        ],
-      },
-      {
-        nome: 'Área comum',
-        imagens: [
           '/images/ilumi-bueno/area-comum/02 - hall de entrada.jpg',
           '/images/ilumi-bueno/area-comum/02 - hall de entrada 2.jpg',
           '/images/ilumi-bueno/area-comum/03 - mercado exclusivo.jpg',
@@ -126,7 +121,7 @@ export const empreendimentos: Empreendimento[] = [
         ],
       },
       {
-        nome: 'Decorados 3Q',
+        nome: 'Decorado 3Q',
         imagens: [
           '/images/ilumi-bueno/decorado-3q/01-ENTRADA.jpeg',
           '/images/ilumi-bueno/decorado-3q/02-SALA ESTAR - HOME.jpeg',
@@ -161,7 +156,14 @@ export const empreendimentos: Empreendimento[] = [
         quartos: '3 Suítes',
         area: '109m²',
         vagas: '2 vagas',
-        planta: '/images/ilumi-bueno/planta-1.jpg',
+        planta: '/images/ilumi-bueno/planta-109m.jpg',
+      },
+      {
+        label: '3 Suítes · 103m²',
+        quartos: '3 Suítes',
+        area: '103m²',
+        vagas: '2 vagas',
+        planta: '/images/ilumi-bueno/planta-103m.jpg',
       },
       {
         label: '3 Quartos · 91m²',
@@ -171,18 +173,25 @@ export const empreendimentos: Empreendimento[] = [
         planta: '/images/ilumi-bueno/planta-2.jpg',
       },
       {
+        label: '3 Quartos · 75m²',
+        quartos: '3 Quartos',
+        area: '75m²',
+        vagas: '2 vagas',
+        planta: '/images/ilumi-bueno/planta-75m.jpg',
+      },
+      {
         label: '2 Quartos · 64m²',
         quartos: '2 Quartos (1 suíte)',
         area: '64m²',
         vagas: '1–2 vagas',
-        planta: '/images/ilumi-bueno/planta-3.jpg',
+        planta: '/images/ilumi-bueno/planta-64m.jpg',
       },
       {
         label: '2 Quartos · 58m²',
         quartos: '2 Quartos',
         area: '58m²',
         vagas: '1 vaga',
-        planta: '/images/ilumi-bueno/planta-4.jpg',
+        planta: '/images/ilumi-bueno/planta-58m.jpg',
       },
     ],
     resumo: {
@@ -193,8 +202,8 @@ export const empreendimentos: Empreendimento[] = [
     lazer: ['Piscina Rooftop', 'Fitness', 'Espaço Gourmet', 'Kids Space', 'Salão de Festas'],
     diferenciais: ['36 andares', '5 aptos por andar', '145 unidades', 'Entrega prevista 2026'],
     localizacao: {
-      lat: -16.7028,
-      lng: -49.2713,
+      lat: -16.6975,
+      lng: -49.2785,
     },
     pontosDeInteresse: [
       {
@@ -237,8 +246,8 @@ export const empreendimentos: Empreendimento[] = [
     status: 'Pronto para Morar',
     bairro: 'Setor Bueno',
     cidade: 'Goiânia — GO',
-    endereco: 'Rua T-37, Qd. 147, nº 3.449, Lotes 16/17 — Setor Bueno, Goiânia',
-    enderecoCurto: 'Rua T-37. N 3.449, Setor Bueno.',
+    endereco: 'R. T-37, 3449 - St. Bueno, Goiânia - GO, 74230-025',
+    enderecoCurto: 'Rua T-37, 3449 - St. Bueno.',
     descricao: 'Para cada estilo de vida, um apartamento no coração do Bueno.',
     descricaoLonga:
       'O Ritmo Bueno oferece a maior variedade de tipologias entre os empreendimentos da Trípoli, com opções do studio ao 3 quartos. São 32 andares, 8 apartamentos por andar e 3 elevadores, garantindo agilidade e conforto no dia a dia. Localizado lado a lado com o Ilumi Bueno, no coração do Setor Bueno.',
@@ -246,18 +255,15 @@ export const empreendimentos: Empreendimento[] = [
     heroVideo: '/videoOriginal-Ritmo.mp4',
     galeria: [
       {
-        nome: 'Lugares do prédio',
+        nome: 'Área comum / Lazer',
         imagens: [
           '/images/ritmo-bueno/area-comum/00 -FACHADA.jpg',
+          '/images/ritmo-bueno/area-comum/05 - PISCINA EXTERNA.jpg',
+          '/images/ritmo-bueno/area-comum/09 - PLAYGROUND.jpg',
           '/images/ritmo-bueno/area-comum/01 - PORTARIA 1.jpg',
           '/images/ritmo-bueno/area-comum/01 - PORTARIA 2.jpg',
           '/images/ritmo-bueno/area-comum/02 - HALL DE ENTRADA.jpg',
           '/images/ritmo-bueno/area-comum/02 - HALL DE ENTRADA 2.jpg',
-        ],
-      },
-      {
-        nome: 'Área comum',
-        imagens: [
           '/images/ritmo-bueno/area-comum/03 - CHURRASQUEIRA SALÃO FESTAS.jpg',
           '/images/ritmo-bueno/area-comum/03 - SALÃO DE FESTAS.jpg',
           '/images/ritmo-bueno/area-comum/03 - VARANDA SALÃO DE FESTAS(1).jpg',
@@ -265,18 +271,34 @@ export const empreendimentos: Empreendimento[] = [
           '/images/ritmo-bueno/area-comum/04 - GOURMET 1.jpg',
           '/images/ritmo-bueno/area-comum/04 - GOURMET 2.jpg',
           '/images/ritmo-bueno/area-comum/04 - GOURMET 3.jpg',
-          '/images/ritmo-bueno/area-comum/05 - PISCINA EXTERNA.jpg',
           '/images/ritmo-bueno/area-comum/05 - PISCINA INTERNA.jpg',
           '/images/ritmo-bueno/area-comum/06 -Varanda.jpg',
           '/images/ritmo-bueno/area-comum/07 - PRAÇA DE CONVIVÊNCIA.jpg',
           '/images/ritmo-bueno/area-comum/08 - QUADRA ESPORTIVA.jpg',
-          '/images/ritmo-bueno/area-comum/09 - PLAYGROUND.jpg',
           '/images/ritmo-bueno/area-comum/10 - PET PLACE.jpg',
           '/images/ritmo-bueno/area-comum/11 - ESPAÇO YOUTUBER.jpg',
           '/images/ritmo-bueno/area-comum/12 - FITNESS.jpg',
           '/images/ritmo-bueno/area-comum/12 - FITNESS 1.jpg',
           '/images/ritmo-bueno/area-comum/12 - FITNESS 2.jpg',
           '/images/ritmo-bueno/area-comum/13 - SALA DE REUNIÃO.jpg',
+        ],
+      },
+      {
+        nome: 'Decorado 1Q - 45m²',
+        imagens: [
+          '/images/ritmo-bueno/foto-1.jpg',
+          '/images/ritmo-bueno/foto-2.jpg',
+          '/images/ritmo-bueno/foto-3.jpg',
+          '/images/ritmo-bueno/foto-4.jpg',
+        ],
+      },
+      {
+        nome: 'Decorado 3Q - 88m²',
+        imagens: [
+          '/images/ritmo-bueno/foto-5.jpg',
+          '/images/ritmo-bueno/foto-6.jpg',
+          '/images/ritmo-bueno/foto-7.jpg',
+          '/images/ritmo-bueno/foto-8.jpg',
         ],
       },
     ],
@@ -286,61 +308,54 @@ export const empreendimentos: Empreendimento[] = [
         quartos: '3 Quartos',
         area: '88m²',
         vagas: '1–2 vagas',
-        planta: '/images/ritmo-bueno/planta-1.jpg',
+        planta: '/images/ritmo-bueno/planta-88m.png',
       },
       {
         label: '3 Quartos · 85m²',
         quartos: '3 Quartos',
         area: '85m²',
         vagas: '1–2 vagas',
-        planta: '/images/ritmo-bueno/planta-2.jpg',
+        planta: '/images/ritmo-bueno/planta-85m.png',
       },
       {
         label: '2 Quartos · 67m²',
         quartos: '2 Quartos',
         area: '67m²',
         vagas: '1–2 vagas',
-        planta: '/images/ritmo-bueno/planta-3.jpg',
+        planta: '/images/ritmo-bueno/planta-67m.png',
       },
       {
         label: '2 Quartos · 62m²',
         quartos: '2 Quartos',
         area: '62m²',
         vagas: '1 vaga',
-        planta: '/images/ritmo-bueno/planta-4.jpg',
+        planta: '/images/ritmo-bueno/planta-62m.png',
       },
       {
         label: '1 Quarto · 51m²',
         quartos: '1 Quarto',
         area: '51m²',
         vagas: '1 vaga',
-        planta: '/images/ritmo-bueno/planta-5.jpg',
+        planta: '/images/ritmo-bueno/planta-51m.png',
       },
       {
         label: '1 Quarto · 45m²',
         quartos: '1 Quarto',
         area: '45m²',
         vagas: '0–1 vaga',
-        planta: '/images/ritmo-bueno/planta-6.jpg',
-      },
-      {
-        label: '1 Quarto · 39m²',
-        quartos: '1 Quarto (Studio)',
-        area: '39m²',
-        vagas: '0 vaga',
-        planta: '/images/ritmo-bueno/planta-7.jpg',
+        planta: '/images/ritmo-bueno/planta-45m.png',
       },
     ],
     resumo: {
       quartos: '1 a 3 quartos',
-      area: '39m² a 88m²',
-      vagas: '0 a 2 vagas',
+      area: '45m² a 88m²',
+      vagas: '1 a 2 vagas',
     },
     lazer: ['Piscina Rooftop', 'Academia', 'Hall de Entrada Elegante', '3 Elevadores', 'Coworking'],
     diferenciais: ['32 andares', '8 aptos por andar', '200 unidades', 'Entrega prevista 2026'],
     localizacao: {
-      lat: -16.7050,
-      lng: -49.2700,
+      lat: -16.6975,
+      lng: -49.2778,
     },
     pontosDeInteresse: [
       {
@@ -383,9 +398,9 @@ export const empreendimentos: Empreendimento[] = [
     status: 'Pronto para Morar',
     bairro: 'Sítios Santa Luzia',
     cidade: 'Aparecida de Goiânia — GO',
-    endereco: 'Rua X-028 — Sítios Santa Luzia, Aparecida de Goiânia',
-    enderecoCurto: 'Rua X-028. Sítios Santa Luzia.',
-    descricao: 'Sobrados prontos em condomínio fechado com bosque privativo.',
+    endereco: 'R. X-28, Chácaras 131/132 - Sitios Santa Luzia, Aparecida de Goiânia - GO, 74922-700',
+    enderecoCurto: 'R. X-28 - Sitios Santa Luzia.',
+    descricao: 'O privilégio de viver com mais espaço, segurança e natureza.',
     descricaoLonga:
       'O Bosque das Orquídeas é um condomínio fechado de sobrados com 64 unidades distribuídas em meio a área verde preservada. Com portaria 24 horas, piscina, salão de festas e bosque privativo, o empreendimento oferece segurança e qualidade de vida para toda a família. Pronto para morar agora.',
     heroImg: '/images/bosque-das-orquideas/hero.jpg',
@@ -436,11 +451,18 @@ export const empreendimentos: Empreendimento[] = [
     ],
     tipologias: [
       {
-        label: 'Sobrado · 161m²',
+        label: 'Pavimento Térreo',
         quartos: '3 Quartos',
         area: '161m²',
         vagas: '2 vagas',
-        planta: '/images/bosque-das-orquideas/planta-3.jpg',
+        planta: '/images/bosque-das-orquideas/planta-pavimento-terreo.jpg',
+      },
+      {
+        label: 'Pavimento Superior',
+        quartos: '3 Quartos',
+        area: '161m²',
+        vagas: '2 vagas',
+        planta: '/images/bosque-das-orquideas/planta-pavimento-superior.jpg',
       },
     ],
     resumo: {
@@ -451,8 +473,8 @@ export const empreendimentos: Empreendimento[] = [
     lazer: ['Portaria 24h', 'Piscina', 'Salão de Festas', 'Bosque Privativo', 'Área de Lazer'],
     diferenciais: ['64 sobrados', 'Condomínio fechado', 'Pronto para morar', 'Área verde preservada'],
     localizacao: {
-      lat: -16.7725,
-      lng: -49.2458,
+      lat: -16.7550,
+      lng: -49.2230,
     },
     pontosDeInteresse: [
       {

@@ -44,7 +44,8 @@ export default function App() {
           muted
           playsInline
           defaultMuted
-          preload="auto"
+          preload="metadata"
+          poster="/images/ritmo-bueno/foto-5.jpg"
           disablePictureInPicture
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
@@ -58,11 +59,11 @@ export default function App() {
 
           {/* Navbar */}
           <header className="flex justify-between items-center py-8">
-            <div className="relative w-[120px] sm:w-[140px] h-[30px] sm:h-[30px] flex items-center z-50">
+            <div className="relative w-[160px] sm:w-[160px] h-[40px] sm:h-[40px] flex items-center z-50">
               <img
                 src="/logo.png"
                 alt="Trípoli Construtora"
-                className="absolute top-1/2 left-[45%] -translate-x-1/2 -translate-y-1/2 min-w-[70px] sm:min-w-[120px] object-contain drop-shadow-md pointer-events-none"
+                className="absolute top-1/2 left-[45%] sm:left-[50%] -translate-x-1/2 -translate-y-1/2 min-w-[110px] sm:min-w-[130px] object-contain drop-shadow-md pointer-events-none"
               />
             </div>
             <nav className="hidden md:flex items-center gap-8 text-[13px] font-medium tracking-wide text-white/60">
@@ -112,7 +113,7 @@ export default function App() {
                       onClick={() => setIsMenuOpen(false)}
                       className="group flex items-center justify-between border-b border-white/10 pb-5"
                     >
-                      <span className="font-serif text-[28px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
+                      <span className="font-serif text-[22px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
                         {item.name}
                       </span>
                       <ArrowUpRight className="w-5 h-5 text-[#4ade80]/50 group-hover:text-[#4ade80] transition-colors" />
@@ -124,7 +125,7 @@ export default function App() {
                       onClick={() => setIsMenuOpen(false)}
                       className="group flex items-center justify-between border-b border-white/10 pb-5"
                     >
-                      <span className="font-serif text-[28px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
+                      <span className="font-serif text-[22px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
                         {item.name}
                       </span>
                       <ArrowUpRight className="w-5 h-5 text-[#4ade80]/50 group-hover:text-[#4ade80] transition-colors" />

@@ -29,10 +29,11 @@ const sections: AccordionItem[] = [
   {
     title: 'Fale Conosco',
     links: [
-      { label: 'Quero comprar um imóvel', href: `https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Quero%20comprar%20um%20imóvel.` },
+      { label: 'Quero comprar um imóvel', href: `https://api.whatsapp.com/send?phone=5562981600202&text=Olá!%20Quero%20comprar%20um%20imóvel.` },
       { label: 'Quero vender meu terreno', href: '/vender-terreno', internal: true },
       { label: 'Seja um fornecedor', href: '/seja-fornecedor', internal: true },
       { label: 'Sou corretor', href: '/sou-corretor', internal: true },
+      { label: 'Trabalhe conosco', href: '/trabalhe-conosco', internal: true },
     ],
   },
   {
@@ -42,9 +43,9 @@ const sections: AccordionItem[] = [
     ],
   },
   {
-    title: 'Trabalhe Conosco',
+    title: 'Simular financiamento',
     links: [
-      { label: 'Enviar meu currículo', href: '/trabalhe-conosco', internal: true },
+      { label: 'Faça sua simulação', href: '/simulador-financiamento', internal: true },
     ],
   },
 ];

@@ -38,6 +38,7 @@ export default function SouCorretor() {
     cpf: '',
     creci: '',
     telefone: '',
+    instagram: '',
     tipo: '' as Tipo,
     imobiliaria: '',
   });
@@ -67,6 +68,7 @@ export default function SouCorretor() {
         cpf:         form.cpf,
         creci:       form.creci,
         telefone:    form.telefone,
+        instagram:   form.instagram,
         tipo:        form.tipo === 'imobiliaria'
                        ? `Imobiliária — ${form.imobiliaria}`
                        : 'Corretor de mercado (autônomo)',
@@ -144,7 +146,7 @@ export default function SouCorretor() {
               <CheckCircle className="w-10 h-10 text-[#1b4332]" />
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-3">Ficha enviada!</h2>
+              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-3">Cadastro enviado!</h2>
               <p className="text-zinc-500 text-[15px] leading-relaxed max-w-sm mx-auto">
                 Seus dados foram registrados com sucesso. Em breve nossa equipe comercial entrará em contato.
               </p>
@@ -152,11 +154,11 @@ export default function SouCorretor() {
             <button
               onClick={() => {
                 setStatus('idle');
-                setForm({ nome: '', email: '', cpf: '', creci: '', telefone: '', tipo: '', imobiliaria: '' });
+                setForm({ nome: '', email: '', cpf: '', creci: '', telefone: '', instagram: '', tipo: '', imobiliaria: '' });
               }}
               className="mt-2 px-6 py-2.5 rounded-full border border-zinc-300 text-[13px] text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 transition-all"
             >
-              Enviar outra ficha
+              Enviar outro cadastro
             </button>
           </div>
         ) : (
@@ -170,7 +172,7 @@ export default function SouCorretor() {
           >
 
             <div>
-              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-1">Ficha Corretor</h2>
+              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-1">Cadastro Corretor</h2>
               <p className="text-zinc-500 text-[13px]">
                 Preencha seus dados para fazer parte da rede de parceiros Trípoli.
               </p>
@@ -216,12 +218,21 @@ export default function SouCorretor() {
               </div>
 
               {/* Telefone */}
-              <div className="sm:col-span-2 flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1.5">
                 <label className={labelCls}>Telefone / WhatsApp *</label>
                 <input
                   required type="tel" value={form.telefone}
                   onChange={(e) => setForm((p) => ({ ...p, telefone: maskPhone(e.target.value) }))}
                   placeholder="(00) 00000-0000" className={field}
+                />
+              </div>
+
+              {/* Instagram */}
+              <div className="flex flex-col gap-1.5">
+                <label className={labelCls}>Instagram (Opcional)</label>
+                <input
+                  type="text" value={form.instagram} onChange={set('instagram')}
+                  placeholder="@seuperfil" className={field}
                 />
               </div>
 
@@ -270,7 +281,7 @@ export default function SouCorretor() {
               {status === 'sending' ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Enviando...</>
               ) : (
-                'Enviar ficha'
+                'Enviar cadastro'
               )}
             </button>
 

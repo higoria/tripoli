@@ -169,7 +169,7 @@ export default function InstagramSection() {
               </div>
             </div>
 
-            <h2 className="font-serif font-light text-3xl sm:text-4xl leading-[1.1] tracking-tight text-zinc-900">
+            <h2 className="font-serif font-light text-2xl sm:text-3xl leading-[1.1] tracking-tight text-zinc-900">
               Acompanhe nossa<br />
               <span className="text-[#1b4332]">jornada</span>
             </h2>

@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   ArrowLeft,
   BedDouble,
@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { getEmpreendimentoBySlug } from '../data/empreendimentos';
 import WhatsAppButton from '../components/WhatsAppButton';
-import { MapSection } from '../components/MapSection';
+const MapSection = lazy(() => import('../components/MapSection').then(module => ({ default: module.MapSection })));
 import { SectorSection } from '../components/SectorSection';
 
 const BASE_TRIPOLI = 'http://www.tripoliconstrutora.com.br';
@@ -67,6 +67,7 @@ export default function EmpreendimentoDetalhe() {
   const [tipologiaAtiva, setTipologiaAtiva] = useState(0);
   const [plantaErr, setPlantaErr] = useState(false);
   const [categoriaGaleriaAtiva, setCategoriaGaleriaAtiva] = useState(0);
+  const [galeriaPage, setGaleriaPage] = useState(0);
   const [plantaZoomOpen, setPlantaZoomOpen] = useState(false);
   const [galeriaZoomOpen, setGaleriaZoomOpen] = useState(false);
   const [galeriaImgIndex, setGaleriaImgIndex] = useState(0);
@@ -136,7 +137,8 @@ export default function EmpreendimentoDetalhe() {
             muted
             playsInline
             defaultMuted
-            preload="auto"
+            preload="metadata"
+            poster={emp.heroImg}
             disablePictureInPicture
             className={`absolute inset-0 w-full h-full object-cover object-center ${emp.heroVideoClassName || ''}`}
           >
@@ -319,7 +321,10 @@ export default function EmpreendimentoDetalhe() {
                 {emp.galeria.map((cat, i) => (
                   <button
                     key={i}
-                    onClick={() => setCategoriaGaleriaAtiva(i)}
+                    onClick={() => {
+                      setCategoriaGaleriaAtiva(i);
+                      setGaleriaPage(0);
+                    }}
                     className={`px-4 py-2 rounded-full text-[12px] font-medium tracking-wide border transition-all duration-200 ${
                       i === categoriaGaleriaAtiva
                         ? 'bg-[#1b4332] border-[#1b4332] text-white'
@@ -331,44 +336,100 @@ export default function EmpreendimentoDetalhe() {
                 ))}
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {emp.galeria[categoriaGaleriaAtiva].imagens.slice(0, 8).map((img, i) => {
-                  const isUltima = i === 7;
-                  const excedente = emp.galeria[categoriaGaleriaAtiva].imagens.length - 8;
-                  const mostraOverlayExcedente = isUltima && excedente > 0;
-                  
-                  return (
-                    <div 
-                      key={i} 
-                      className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 cursor-pointer group"
-                      onClick={() => {
-                        setGaleriaImgIndex(i);
-                        setGaleriaZoomOpen(true);
-                      }}
-                    >
-                      <ImgWithFallback
-                        src={img}
-                        alt={`${emp.nome} - ${emp.galeria[categoriaGaleriaAtiva].nome} ${i + 1}`}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      
-                      {mostraOverlayExcedente ? (
-                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white transition-colors group-hover:bg-black/60">
-                          <span className="text-2xl sm:text-3xl font-light">+{excedente}</span>
-                          <span className="text-[11px] sm:text-[13px] font-medium tracking-wide uppercase mt-1">Imagens</span>
+              {(() => {
+                const imagensGaleria = emp.galeria[categoriaGaleriaAtiva].imagens;
+                const totalPages = Math.ceil(imagensGaleria.length / 8);
+                const currentChunk = imagensGaleria.slice(galeriaPage * 8, (galeriaPage + 1) * 8);
+
+                return (
+                  <div className="overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={galeriaPage}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.2 }}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.2}
+                        onDragEnd={(e, { offset }) => {
+                          const swipe = offset.x;
+                          if (swipe < -50 && galeriaPage < totalPages - 1) {
+                            setGaleriaPage(galeriaPage + 1);
+                          } else if (swipe > 50 && galeriaPage > 0) {
+                            setGaleriaPage(galeriaPage - 1);
+                          }
+                        }}
+                        className="grid grid-cols-2 md:grid-cols-4 gap-3 cursor-grab active:cursor-grabbing"
+                      >
+                      {currentChunk.map((img, i) => {
+                        const absoluteIndex = galeriaPage * 8 + i;
+                        
+                        return (
+                          <div 
+                            key={absoluteIndex} 
+                            className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 border border-zinc-200 cursor-pointer group"
+                            onClick={() => {
+                              setGaleriaImgIndex(absoluteIndex);
+                              setGaleriaZoomOpen(true);
+                            }}
+                          >
+                            <ImgWithFallback
+                              src={img}
+                              alt={`${emp.nome} - ${emp.galeria[categoriaGaleriaAtiva].nome} ${absoluteIndex + 1}`}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            
+                            <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur border border-white/10 shadow-sm transition-transform group-hover:scale-105 opacity-0 group-hover:opacity-100 duration-300">
+                              <ZoomIn className="w-3 h-3 text-white" />
+                              <span className="text-[10px] font-medium text-white tracking-wide">Ampliar</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                      </motion.div>
+                    </AnimatePresence>
+                    
+                    {totalPages > 1 && (
+                      <div className="flex justify-center items-center gap-4 mt-6">
+                        <button
+                          onClick={() => setGaleriaPage(p => Math.max(0, p - 1))}
+                          disabled={galeriaPage === 0}
+                          className="p-1 rounded-full text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                          aria-label="Página anterior"
+                        >
+                          <ChevronLeft className="w-5 h-5" />
+                        </button>
+
+                        <div className="flex items-center gap-2">
+                          {Array.from({ length: totalPages }).map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => setGaleriaPage(i)}
+                              className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                                i === galeriaPage ? 'bg-[#1b4332]' : 'bg-zinc-300 hover:bg-zinc-400'
+                              }`}
+                              aria-label={`Ir para página ${i + 1}`}
+                            />
+                          ))}
                         </div>
-                      ) : (
-                        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur border border-white/10 shadow-sm transition-transform group-hover:scale-105 opacity-0 group-hover:opacity-100 duration-300">
-                          <ZoomIn className="w-3 h-3 text-white" />
-                          <span className="text-[10px] font-medium text-white tracking-wide">Ampliar</span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
+
+                        <button
+                          onClick={() => setGaleriaPage(p => Math.min(totalPages - 1, p + 1))}
+                          disabled={galeriaPage === totalPages - 1}
+                          className="p-1 rounded-full text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                          aria-label="Próxima página"
+                        >
+                          <ChevronRight className="w-5 h-5" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -394,7 +455,7 @@ export default function EmpreendimentoDetalhe() {
             </div>
 
             <a
-              href={`https://api.whatsapp.com/send?phone=556298160202&text=Olá!%20Tenho%20interesse%20no%20${encodeURIComponent(emp.nome)}`}
+              href={`https://api.whatsapp.com/send?phone=5562981600202&text=Olá!%20Tenho%20interesse%20no%20${encodeURIComponent(emp.nome)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-[#1b4332] hover:bg-[#2d6a4f] text-[13px] font-medium text-white transition-all duration-200"
@@ -403,7 +464,7 @@ export default function EmpreendimentoDetalhe() {
             </a>
 
             <a
-              href="tel:+556298160202"
+              href="tel:+5562981600202"
               className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl border border-zinc-200 hover:border-zinc-300 bg-zinc-50 text-[13px] text-zinc-600 hover:text-zinc-900 transition-all duration-200"
             >
               <Phone className="w-3.5 h-3.5" />
@@ -485,7 +546,9 @@ export default function EmpreendimentoDetalhe() {
 
       {/* ── MAPA (largura total) ─────────────────────────────── */}
       <div className="max-w-[1400px] mx-auto px-6 sm:px-12 pb-14">
-        <MapSection empreendimento={emp} />
+        <Suspense fallback={<div className="h-[500px] w-full rounded-2xl bg-zinc-100 animate-pulse border border-zinc-200" />}>
+          <MapSection empreendimento={emp} />
+        </Suspense>
       </div>
 
       {/* ── WHATSAPP FLUTUANTE ─────────────────────────────────── */}

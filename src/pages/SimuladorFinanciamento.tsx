@@ -52,7 +52,7 @@ export default function SimuladorFinanciamento() {
   const [imovel, setImovel] = useState('');
   const [entrada, setEntrada] = useState('');
   const [prazo, setPrazo] = useState('');
-  const [taxa, setTaxa] = useState('0,00');
+  const [taxa, setTaxa] = useState('');
 
   const [activeTab, setActiveTab] = useState<'comparativo' | 'detalhamento'>('comparativo');
   const [direction, setDirection] = useState<number>(0);
@@ -388,10 +388,9 @@ export default function SimuladorFinanciamento() {
         </motion.div>
       </section>
 
-      <section className="max-w-[1200px] mx-auto px-6 sm:px-12 py-20">
-        <div className="flex flex-col lg:flex-row gap-8 mb-12">
-          {/* Formulário */}
-          <div className="flex-1">
+      <section className="max-w-[1200px] mx-auto px-6 sm:px-12 py-20 flex flex-col lg:grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-y-12">
+        {/* Formulário */}
+        <div className="order-1 lg:order-1">
             <motion.form 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -449,7 +448,7 @@ export default function SimuladorFinanciamento() {
                     value={taxa} 
                     onChange={(e) => setTaxa(formatarPercentualInput(e.target.value))}
                     className={field}
-                    placeholder="Ex: 10,00"
+                    placeholder="Ex: 9,99"
                     required
                   />
                 </div>
@@ -466,7 +465,7 @@ export default function SimuladorFinanciamento() {
           </div>
 
           {/* PDF Button */}
-          <div className="lg:w-[320px]">
+          <div className="order-3 lg:order-2">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -494,7 +493,6 @@ export default function SimuladorFinanciamento() {
               </button>
             </motion.div>
           </div>
-        </div>
 
         {/* Notebook (Carrossel) */}
         <motion.div 
@@ -502,7 +500,7 @@ export default function SimuladorFinanciamento() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px", amount: 0.1 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden min-h-[400px] flex flex-col"
+          className="order-2 lg:order-3 lg:col-span-2 bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden min-h-[400px] flex flex-col"
         >
           {/* Cabeçalho do Carrossel Premium */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200 bg-zinc-50/60 backdrop-blur-sm">
@@ -617,7 +615,7 @@ export default function SimuladorFinanciamento() {
                         </div>
                         <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-4 flex flex-col gap-1">
                           <span className="text-zinc-400 text-[11px] font-semibold uppercase">Prazo</span>
-                          <span className="text-zinc-800 text-[16px] font-semibold font-mono">{dadosCalculo.prazo} meses <span className="text-zinc-500 text-[12px] font-sans">({Math.floor(dadosCalculo.prazo / 12)}a e {dadosCalculo.prazo % 12}m)</span></span>
+                          <span className="text-zinc-800 text-[16px] font-semibold font-mono">{dadosCalculo.prazo} meses <span className="text-zinc-500 text-[12px] font-sans">({Math.floor(dadosCalculo.prazo / 12)} {Math.floor(dadosCalculo.prazo / 12) === 1 ? 'ano' : 'anos'} e {dadosCalculo.prazo % 12} {dadosCalculo.prazo % 12 === 1 ? 'mês' : 'meses'})</span></span>
                         </div>
                         <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-4 flex flex-col gap-1">
                           <span className="text-zinc-400 text-[11px] font-semibold uppercase">Juros ao Ano</span>
@@ -671,9 +669,7 @@ export default function SimuladorFinanciamento() {
 
                         {/* SAC Card */}
                         <div className="bg-white border border-[#1b4332]/30 rounded-xl p-6 shadow-sm hover:border-[#1b4332]/50 transition-colors relative flex flex-col justify-between">
-                          <div className="absolute -top-3 right-6 bg-[#4ade80] text-[#0e1a14] text-[10px] uppercase font-bold tracking-widest px-3 py-1 rounded-full shadow-sm">
-                            Maior Economia
-                          </div>
+                          {/* Removed Maior Economia badge */}
                           
                           <div>
                             <div className="flex justify-between items-start mb-4">
@@ -681,10 +677,7 @@ export default function SimuladorFinanciamento() {
                                 <h4 className="font-serif text-lg text-zinc-900 font-medium">Tabela SAC</h4>
                                 <p className="text-zinc-500 text-[12px]">Sistema de Amortização Constante</p>
                               </div>
-                              <span className="bg-[#1b4332]/10 text-[#1b4332] border border-[#1b4332]/20 text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full flex items-center gap-1">
-                                <Sparkles className="w-3 h-3" />
-                                Recomendado
-                              </span>
+                              {/* Removed Recomendado badge */}
                             </div>
 
                             <div className="flex flex-col gap-3 py-4 border-y border-zinc-100 font-mono text-[13px] text-zinc-600">

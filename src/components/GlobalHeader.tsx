@@ -101,7 +101,7 @@ export default function GlobalHeader() {
                   to={item.href}
                   className="group flex items-center justify-between border-b border-white/10 pb-4 sm:pb-5"
                 >
-                  <span className="font-serif text-[24px] sm:text-[32px] md:text-[40px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
+                  <span className="font-serif text-[22px] sm:text-[28px] md:text-[32px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
                     {item.name}
                   </span>
                   <ArrowUpRight className="w-5 h-5 md:w-8 md:h-8 text-[#4ade80]/50 group-hover:text-[#4ade80] transition-colors" />
@@ -112,7 +112,7 @@ export default function GlobalHeader() {
                   href={item.href}
                   className="group flex items-center justify-between border-b border-white/10 pb-4 sm:pb-5"
                 >
-                  <span className="font-serif text-[24px] sm:text-[32px] md:text-[40px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
+                  <span className="font-serif text-[22px] sm:text-[28px] md:text-[32px] font-light text-white/80 group-hover:text-white transition-colors tracking-wide">
                     {item.name}
                   </span>
                   <ArrowUpRight className="w-5 h-5 md:w-8 md:h-8 text-[#4ade80]/50 group-hover:text-[#4ade80] transition-colors" />

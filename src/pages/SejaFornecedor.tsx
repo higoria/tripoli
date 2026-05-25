@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Upload, CheckCircle, Loader2, X } from 'lucide-react';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
 
@@ -14,6 +14,8 @@ function maskCNPJ(value: string) {
   return d;
 }
 
+type Status = 'idle' | 'sending' | 'success' | 'error';
+
 export default function SejaFornecedor() {
   const [form, setForm] = useState({
     nome: '',
@@ -23,16 +25,62 @@ export default function SejaFornecedor() {
     mensagem: '',
   });
 
+  const [file, setFile] = useState<File | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
+  const fileRef = useRef<HTMLInputElement>(null);
+
   const set = (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((p) => ({ ...p, [k]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleFile = (f: File | null) => {
+    if (!f) return;
+    
+    const ext = f.name.split('.').pop()?.toLowerCase();
+    const isAllowedExt = ext === 'pdf';
+    
+    if (!isAllowedExt && f.type !== 'application/pdf') {
+      alert('Formato inválido. Aceitamos apenas arquivos em PDF.');
+      return;
+    }
+    if (f.size > 20 * 1024 * 1024) {
+      alert('Arquivo muito grande. O tamanho máximo é de 20 MB.');
+      return;
+    }
+    setFile(f);
+  };
 
-    const text = `Olá! Gostaria de ser um fornecedor.\n\n*Nome da Empresa/Contato:* ${form.nome}\n*E-mail:* ${form.email}\n*CNPJ:* ${form.cnpj}\n*Tipo de Serviço/Produto:* ${form.tipoServico}\n*Mensagem/Proposta:* ${form.mensagem}`;
-    const url = `https://api.whatsapp.com/send?phone=556298160202&text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    handleFile(e.dataTransfer.files[0]);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    setStatus('sending');
+
+    const body = [
+      'Novo Contato de Fornecedor via site Trípoli Construtora',
+      '',
+      `Nome ou Razão Social: ${form.nome}`,
+      `E-mail: ${form.email}`,
+      `CNPJ: ${form.cnpj}`,
+      `Tipo de Serviço/Produto: ${form.tipoServico}`,
+      `Mensagem/Proposta: ${form.mensagem}`,
+      file ? `Arquivo da Apresentação: ${file.name}` : 'Apresentação não enviada.',
+      '',
+      file ? '(Lembre-se de anexar o arquivo da apresentação no e-mail antes de enviar.)' : '',
+    ].join('\n');
+
+    const mailtoLink = `mailto:compras@tripoliconstrutora.com.br?subject=${encodeURIComponent(`Contato de Fornecedor – ${form.nome}`)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
+
+    await new Promise((r) => setTimeout(r, 1000));
+    setStatus('success');
   };
 
   const field =
@@ -84,52 +132,146 @@ export default function SejaFornecedor() {
 
       {/* ── FORMULÁRIO ───────────────────────────────── */}
       <section className="max-w-[680px] mx-auto px-6 sm:px-12 py-20">
-        <motion.form 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px", amount: 0.1 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          onSubmit={handleSubmit} 
-          className="flex flex-col gap-6"
-        >
-          <div>
-            <h2 className="font-serif text-2xl font-light text-zinc-900 mb-1">Ficha de Fornecedor</h2>
-            <p className="text-zinc-500 text-[13px]">
-              Preencha os dados abaixo com as informações da sua empresa.
-            </p>
+        {status === 'success' ? (
+          <div className="flex flex-col items-center text-center gap-6 py-16">
+            <div className="w-20 h-20 rounded-full bg-[#1b4332]/10 flex items-center justify-center">
+              <CheckCircle className="w-10 h-10 text-[#1b4332]" />
+            </div>
+            <div>
+              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-3">Quase lá!</h2>
+              <p className="text-zinc-500 text-[15px] leading-relaxed max-w-sm mx-auto mb-4">
+                Seu cliente de e-mail foi aberto com as informações já preenchidas.
+              </p>
+              {file && (
+                <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 text-left max-w-sm mx-auto">
+                  <p className="text-amber-800 text-[13px] font-semibold mb-1">Importante</p>
+                  <p className="text-amber-700 text-[13px] leading-relaxed">
+                    Antes de clicar em <strong>Enviar</strong> no seu e-mail, anexe o arquivo{' '}
+                    <strong className="text-amber-900">{file?.name}</strong> manualmente.
+                  </p>
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => { setStatus('idle'); setForm({ nome:'', email:'', cnpj:'', tipoServico:'', mensagem:'' }); setFile(null); }}
+              className="mt-2 px-6 py-2.5 rounded-full border border-zinc-300 text-[13px] text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 transition-all"
+            >
+              Enviar nova proposta
+            </button>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="sm:col-span-2 flex flex-col gap-1.5">
-              <label className={labelCls}>Nome ou Razão Social *</label>
-              <input required type="text" value={form.nome} onChange={set('nome')} placeholder="Nome da empresa" className={field} />
+        ) : (
+          <motion.form 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px", amount: 0.1 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            onSubmit={handleSubmit} 
+            className="flex flex-col gap-6"
+          >
+            <div>
+              <h2 className="font-serif text-2xl font-light text-zinc-900 mb-1">Ficha de Fornecedor</h2>
+              <p className="text-zinc-500 text-[13px]">
+                Preencha os dados abaixo com as informações da sua empresa.
+              </p>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className={labelCls}>E-mail *</label>
-              <input required type="email" value={form.email} onChange={set('email')} placeholder="contato@empresa.com" className={field} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2 flex flex-col gap-1.5">
+                <label className={labelCls}>Nome ou Razão Social *</label>
+                <input required type="text" value={form.nome} onChange={set('nome')} placeholder="Nome da empresa" className={field} />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className={labelCls}>E-mail *</label>
+                <input required type="email" value={form.email} onChange={set('email')} placeholder="contato@empresa.com" className={field} />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className={labelCls}>CNPJ *</label>
+                <input required type="text" inputMode="numeric" value={form.cnpj} onChange={(e) => setForm((p) => ({ ...p, cnpj: maskCNPJ(e.target.value) }))} placeholder="00.000.000/0000-00" className={field} />
+              </div>
+
+              <div className="sm:col-span-2 flex flex-col gap-1.5">
+                <label className={labelCls}>Tipo de Serviço ou Produto *</label>
+                <input required type="text" value={form.tipoServico} onChange={set('tipoServico')} placeholder="Ex: Materiais elétricos, pintura, etc." className={field} />
+              </div>
+
+              <div className="sm:col-span-2 flex flex-col gap-1.5">
+                <label className={labelCls}>Mensagem / Proposta</label>
+                <textarea rows={4} value={form.mensagem} onChange={set('mensagem')} placeholder="Apresente sua empresa ou detalhe sua proposta..." className={`${field} resize-none`} />
+              </div>
+
+              {/* Upload de arquivo (opcional) */}
+              <div className="sm:col-span-2 flex flex-col gap-1.5 mt-2">
+                <label className={labelCls}>
+                  Envie sua apresentação (PDF) - Opcional
+                </label>
+
+                {file ? (
+                  <div className="flex items-center gap-3 px-4 py-3.5 rounded-xl border border-[#1b4332]/30 bg-[#1b4332]/5">
+                    <div className="w-9 h-9 rounded-lg bg-[#1b4332]/10 flex items-center justify-center flex-shrink-0">
+                      <Upload className="w-4 h-4 text-[#1b4332]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-medium text-zinc-800 truncate">{file.name}</p>
+                      <p className="text-[11px] text-zinc-500">{(file.size / 1024).toFixed(0)} KB</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setFile(null)}
+                      className="flex-shrink-0 w-7 h-7 rounded-full hover:bg-zinc-200 flex items-center justify-center transition-colors"
+                    >
+                      <X className="w-4 h-4 text-zinc-500" />
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                    onDragLeave={() => setDragOver(false)}
+                    onDrop={handleDrop}
+                    onClick={() => fileRef.current?.click()}
+                    className={`cursor-pointer flex flex-col items-center justify-center gap-3 px-6 py-10 rounded-xl border-2 border-dashed transition-all duration-200 ${
+                      dragOver
+                        ? 'border-[#1b4332] bg-[#1b4332]/5'
+                        : 'border-zinc-200 hover:border-[#1b4332]/40 hover:bg-zinc-50'
+                    }`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center">
+                      <Upload className="w-5 h-5 text-zinc-400" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[14px] text-zinc-700 font-medium">
+                        Clique para selecionar ou arraste o arquivo aqui
+                      </p>
+                      <p className="text-[12px] text-zinc-400 mt-0.5">Apenas arquivo PDF · máximo 20 MB</p>
+                    </div>
+                  </div>
+                )}
+
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept=".pdf,application/pdf"
+                  className="hidden"
+                  onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
+                />
+              </div>
+
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className={labelCls}>CNPJ *</label>
-              <input required type="text" inputMode="numeric" value={form.cnpj} onChange={(e) => setForm((p) => ({ ...p, cnpj: maskCNPJ(e.target.value) }))} placeholder="00.000.000/0000-00" className={field} />
-            </div>
-
-            <div className="sm:col-span-2 flex flex-col gap-1.5">
-              <label className={labelCls}>Tipo de Serviço ou Produto *</label>
-              <input required type="text" value={form.tipoServico} onChange={set('tipoServico')} placeholder="Ex: Materiais elétricos, pintura, etc." className={field} />
-            </div>
-
-            <div className="sm:col-span-2 flex flex-col gap-1.5">
-              <label className={labelCls}>Mensagem / Proposta</label>
-              <textarea rows={4} value={form.mensagem} onChange={set('mensagem')} placeholder="Apresente sua empresa ou detalhe sua proposta..." className={`${field} resize-none`} />
-            </div>
-          </div>
-
-          <button type="submit" className="w-full py-4 rounded-xl bg-[#1b4332] hover:bg-[#2d6a4f] text-white font-medium text-[14px] tracking-wide transition-all duration-200 shadow-sm mt-2">
-            Enviar informações por WhatsApp
-          </button>
-        </motion.form>
+            <button 
+              type="submit" 
+              disabled={status === 'sending'} 
+              className="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-[#1b4332] hover:bg-[#2d6a4f] text-white font-medium text-[14px] tracking-wide transition-all duration-200 shadow-sm mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {status === 'sending' ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Enviando...</>
+              ) : (
+                'Enviar informações'
+              )}
+            </button>
+          </motion.form>
+        )}
       </section>
 
       <Footer />

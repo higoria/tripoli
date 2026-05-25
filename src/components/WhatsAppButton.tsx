@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Phone, MessageCircle } from 'lucide-react';
 
-const WA_NUMBER = '556298160202';
+const WA_NUMBER = '5562981600202';
 const WA_BASE = `https://api.whatsapp.com/send?phone=${WA_NUMBER}`;
 
 const options = [
@@ -19,7 +19,7 @@ const options = [
     sublabel: '(62) 98160-0202',
     icon: Phone,
     iconColor: '#1b4332',
-    href: 'tel:+556298160202',
+    href: 'tel:+5562981600202',
   },
 ];
 
