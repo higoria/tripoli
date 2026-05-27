@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { X, Phone, MessageCircle } from 'lucide-react';
 
 const WA_NUMBER = '5562981600202';
@@ -23,7 +23,7 @@ const options = [
   },
 ];
 
-export default function WhatsAppButton() {
+export default memo(function WhatsAppButton() {
   const [open, setOpen] = useState(false);
 
   // Fecha modal com ESC
@@ -144,4 +144,4 @@ export default function WhatsAppButton() {
       </div>
     </>
   );
-}
+});

@@ -9,23 +9,33 @@ export default function GlobalHeader() {
   const location = useLocation();
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 150) {
-        if (currentScrollY < lastScrollY) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      } else {
-        setIsVisible(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          if (currentScrollY > 150) {
+            if (currentScrollY < lastScrollY) {
+              setIsVisible(true);
+            } else {
+              setIsVisible(false);
+            }
+          } else {
+            setIsVisible(false);
+          }
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
       }
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [lastScrollY]);
 
   // Lock scroll when menu is open
@@ -52,12 +62,12 @@ export default function GlobalHeader() {
           isVisible || isMenuOpen ? 'translate-y-0 shadow-sm' : '-translate-y-full'
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-3 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-5 flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img
               src="/logo.png"
               alt="Trípoli Construtora"
-              className="h-8 object-contain"
+              className="h-10 md:h-12 object-contain"
             />
           </Link>
 
@@ -65,8 +75,8 @@ export default function GlobalHeader() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="flex items-center gap-2 text-zinc-900 font-medium hover:text-[#1b4332] transition-colors"
           >
-            <span className="hidden sm:block text-[13px] uppercase tracking-wider font-semibold">Menu</span>
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <span className="hidden sm:block text-[14px] uppercase tracking-wider font-semibold">Menu</span>
+            {isMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </header>

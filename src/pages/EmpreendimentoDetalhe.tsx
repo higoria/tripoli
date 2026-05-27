@@ -34,6 +34,14 @@ const WazeIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const GoogleMapsIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C8.14 2 5 5.14 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.14 15.86 2 12 2Z" fill="#EA4335" />
+    <circle cx="12" cy="9" r="3.5" fill="#FFFFFF" />
+    <circle cx="12" cy="9" r="1.8" fill="#4285F4" />
+  </svg>
+);
+
 /* ── Placeholder quando imagem falha ─────────────────────── */
 function ImgWithFallback({
   src,
@@ -72,14 +80,19 @@ export default function EmpreendimentoDetalhe() {
   const [galeriaZoomOpen, setGaleriaZoomOpen] = useState(false);
   const [galeriaImgIndex, setGaleriaImgIndex] = useState(0);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const heroVideoDesktopRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.defaultMuted = true;
-      heroVideoRef.current.muted = true;
-      heroVideoRef.current.play().catch(e => console.log("Autoplay prevented:", e));
-    }
-  }, [emp?.heroVideo]);
+    const playVideo = (ref: React.RefObject<HTMLVideoElement | null>) => {
+      if (ref.current) {
+        ref.current.defaultMuted = true;
+        ref.current.muted = true;
+        ref.current.play().catch(e => console.log("Autoplay prevented:", e));
+      }
+    };
+    playVideo(heroVideoRef);
+    playVideo(heroVideoDesktopRef);
+  }, [emp?.heroVideo, emp?.heroVideoDesktop]);
 
 
   if (!emp) {
@@ -129,21 +142,35 @@ export default function EmpreendimentoDetalhe() {
 
       {/* ── HERO DO EMPREENDIMENTO ─────────────────────────── */}
       <section className="relative h-[75vh] min-h-[500px] overflow-hidden">
-        {emp.heroVideo ? (
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            defaultMuted
-            preload="metadata"
-            poster={emp.heroImg}
-            disablePictureInPicture
-            className={`absolute inset-0 w-full h-full object-cover object-center ${emp.heroVideoClassName || ''}`}
-          >
-            <source src={emp.heroVideo} type="video/mp4" />
-          </video>
+        {emp.heroVideoDesktop || emp.heroVideo ? (
+          <>
+            {emp.heroVideoDesktop && (
+              <video
+                ref={heroVideoDesktopRef}
+                src={emp.heroVideoDesktop}
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster={emp.heroImg}
+                disablePictureInPicture
+                className={`hidden md:block absolute inset-0 w-full h-full object-cover object-center ${emp.heroVideoClassName || ''}`}
+              />
+            )}
+            {emp.heroVideo && (
+              <video
+                ref={heroVideoRef}
+                src={emp.heroVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster={emp.heroImg}
+                disablePictureInPicture
+                className={`${emp.heroVideoDesktop ? 'block md:hidden' : ''} absolute inset-0 w-full h-full object-cover object-center ${emp.heroVideoClassName || ''}`}
+              />
+            )}
+          </>
         ) : (
           <ImgWithFallback
             src={emp.heroImg}
@@ -300,9 +327,12 @@ export default function EmpreendimentoDetalhe() {
             </div>
 
             {/* Botão de Download do Caderno de Plantas */}
-            {emp.slug !== 'bosque-das-orquideas' && (
+            {emp.cadernoDePlantas && (
               <a
-                href="#"
+                href={emp.cadernoDePlantas}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
                 className="mt-6 flex items-center justify-center gap-2 px-6 py-3.5 border border-zinc-200 hover:border-zinc-300 rounded-full bg-white hover:bg-zinc-50 text-zinc-900 text-[13px] font-medium transition-colors"
               >
                 <Download className="w-4 h-4 text-[#1b4332]" />
@@ -505,13 +535,7 @@ export default function EmpreendimentoDetalhe() {
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl border border-zinc-200 hover:border-zinc-300 bg-zinc-50 text-[13px] text-zinc-600 hover:text-zinc-900 transition-all duration-200 group"
                 >
-                  <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg" 
-                    alt="Google Maps" 
-                    loading="lazy"
-                    decoding="async"
-                    className="w-[15px] h-[15px] group-hover:scale-110 transition-transform" 
-                  />
+                  <GoogleMapsIcon className="w-[15px] h-[15px] group-hover:scale-110 transition-transform" />
                   Como chegar com Google Maps
                 </a>
                 <a

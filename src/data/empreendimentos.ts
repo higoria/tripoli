@@ -36,8 +36,10 @@ export interface Empreendimento {
   descricaoLonga: string;
   heroImg: string;
   heroVideo?: string;
+  heroVideoDesktop?: string;
   heroVideoClassName?: string;
   presentationVideo?: string;
+  cadernoDePlantas?: string;
   galeria: CategoriaGaleria[];
   tipologias: Tipologia[];
   resumo: {
@@ -76,7 +78,9 @@ export const empreendimentos: Empreendimento[] = [
       'O Ilumi Bueno une arquitetura contemporânea e áreas verdes exuberantes em um dos bairros mais valorizados de Goiânia. Com 36 andares e apenas 5 apartamentos por andar, o empreendimento garante privacidade e exclusividade para quem busca o melhor em qualidade de vida. O rooftop com piscina e vista panorâmica é o ponto alto do projeto.',
     heroImg: '/images/ilumi-bueno/hero.jpg',
     heroVideo: '/videoIlumiBuenoBannerSectionOFC.mp4',
+    heroVideoDesktop: '/0526.mp4',
     heroVideoClassName: '!object-cover scale-[1.35] md:scale-125',
+    cadernoDePlantas: '/cadernoDePlantasIlumiBueno.pdf',
     galeria: [
       {
         nome: 'Area comum / Lazer',
@@ -253,16 +257,17 @@ export const empreendimentos: Empreendimento[] = [
       'O Ritmo Bueno oferece a maior variedade de tipologias entre os empreendimentos da Trípoli, com opções do studio ao 3 quartos. São 32 andares, 8 apartamentos por andar e 3 elevadores, garantindo agilidade e conforto no dia a dia. Localizado lado a lado com o Ilumi Bueno, no coração do Setor Bueno.',
     heroImg: '/images/ritmo-bueno/hero.jpg',
     heroVideo: '/videoOriginal-Ritmo.mp4',
+    cadernoDePlantas: '/cadernoDePlantasRitmoBueno.pdf',
     galeria: [
       {
         nome: 'Área comum / Lazer',
         imagens: [
           '/images/ritmo-bueno/area-comum/00 -FACHADA.jpg',
           '/images/ritmo-bueno/area-comum/05 - PISCINA EXTERNA.jpg',
-          '/images/ritmo-bueno/area-comum/09 - PLAYGROUND.jpg',
+          '/images/ritmo-bueno/area-comum/02 - HALL DE ENTRADA.jpg',
           '/images/ritmo-bueno/area-comum/01 - PORTARIA 1.jpg',
           '/images/ritmo-bueno/area-comum/01 - PORTARIA 2.jpg',
-          '/images/ritmo-bueno/area-comum/02 - HALL DE ENTRADA.jpg',
+          '/images/ritmo-bueno/area-comum/09 - PLAYGROUND.jpg',
           '/images/ritmo-bueno/area-comum/02 - HALL DE ENTRADA 2.jpg',
           '/images/ritmo-bueno/area-comum/03 - CHURRASQUEIRA SALÃO FESTAS.jpg',
           '/images/ritmo-bueno/area-comum/03 - SALÃO DE FESTAS.jpg',
@@ -411,14 +416,16 @@ export const empreendimentos: Empreendimento[] = [
       {
         nome: 'Lugares do prédio',
         imagens: [
+          '/images/bosque-das-orquideas/fotos-reais/05 - vista sobrados.JPG',
+          '/images/bosque-das-orquideas/fotos-reais/19 - Piscina Mar.26.jpeg',
+          '/images/bosque-das-orquideas/fotos-reais/20 - playground.jpeg',
           '/images/bosque-das-orquideas/fotos-reais/01- portaria.jpg',
-          '/images/bosque-das-orquideas/fotos-reais/02 - vista dos sobrados.JPG',
           '/images/bosque-das-orquideas/fotos-reais/02 - vista dos sobrados (2).JPG',
           '/images/bosque-das-orquideas/fotos-reais/03 - vista lateral esquerda.JPG',
           '/images/bosque-das-orquideas/fotos-reais/03 - vista lateral esquerda (2).JPG',
           '/images/bosque-das-orquideas/fotos-reais/04 - vista bosque.JPG',
           '/images/bosque-das-orquideas/fotos-reais/04 - vista bosque (2).JPG',
-          '/images/bosque-das-orquideas/fotos-reais/05 - vista sobrados.JPG',
+          '/images/bosque-das-orquideas/fotos-reais/02 - vista dos sobrados.JPG',
           '/images/bosque-das-orquideas/fotos-reais/08 - sobrados.JPG',
           '/images/bosque-das-orquideas/fotos-reais/09 - Acesso independente ao quintal.jpg',
           '/images/bosque-das-orquideas/fotos-reais/17 - vista geral.JPG',

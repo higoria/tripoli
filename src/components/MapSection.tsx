@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Empreendimento } from '../data/empreendimentos';
 
 interface MapSectionProps {
   empreendimento: Empreendimento;
 }
 
-export function MapSection({ empreendimento }: MapSectionProps) {
+export const MapSection = memo(function MapSection({ empreendimento }: MapSectionProps) {
   if (!empreendimento.endereco) return null;
 
   return (
@@ -22,6 +22,7 @@ export function MapSection({ empreendimento }: MapSectionProps) {
           height="100%" 
           frameBorder="0" 
           style={{ border: 0 }} 
+          loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           src={`https://maps.google.com/maps?q=${encodeURIComponent(empreendimento.endereco)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
           allowFullScreen>
@@ -29,4 +30,4 @@ export function MapSection({ empreendimento }: MapSectionProps) {
       </div>
     </div>
   );
-}
+});

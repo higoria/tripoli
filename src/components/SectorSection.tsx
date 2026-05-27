@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -10,7 +10,7 @@ interface SectorSectionProps {
   };
 }
 
-export function SectorSection({ setorInfo }: SectorSectionProps) {
+export const SectorSection = memo(function SectorSection({ setorInfo }: SectorSectionProps) {
   if (!setorInfo || !setorInfo.imagens || setorInfo.imagens.length === 0) return null;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -115,4 +115,4 @@ export function SectorSection({ setorInfo }: SectorSectionProps) {
       </div>
     </div>
   );
-}
+});

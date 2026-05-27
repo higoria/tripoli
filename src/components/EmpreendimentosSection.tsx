@@ -14,12 +14,12 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
   const previewImagens = emp.galeria.flatMap(c => c.imagens).slice(0, 3);
 
   useEffect(() => {
-    if (!previewImagens || previewImagens.length <= 1) return;
+    if (!previewImagens || previewImagens.length <= 1 || !isHovered) return;
     const interval = setInterval(() => {
       setActiveImg((current) => (current + 1) % previewImagens.length);
     }, 3000); // 3000ms para rodar automaticamente
     return () => clearInterval(interval);
-  }, [previewImagens.length]);
+  }, [previewImagens.length, isHovered]);
 
   return (
     <motion.div
