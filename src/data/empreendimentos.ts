@@ -440,8 +440,8 @@ export const empreendimentos: Empreendimento[] = [
       'O Bosque das Orquídeas é um condomínio fechado de sobrados com 64 unidades distribuídas em meio a área verde preservada. Com portaria 24 horas, piscina, salão de festas e bosque privativo, o empreendimento oferece segurança e qualidade de vida para toda a família. Pronto para morar agora.',
     heroImg: '/images/bosque-das-orquideas/hero.jpg',
     heroVideo: '/Video Project 33.mp4',
-    heroVideoDesktop: '/video-bosque.mp4',
-    heroVideoClassName: '!object-bottom',
+    heroVideoDesktop: '/bosque-desktop-banner.mp4',
+    heroVideoClassName: '!object-bottom md:!object-center md:!object-cover',
     presentationVideo: '/video-bosque.mp4',
     galeria: [
       {
