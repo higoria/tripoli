@@ -14,12 +14,12 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
   const previewImagens = emp.galeria.flatMap(c => c.imagens).slice(0, 3);
 
   useEffect(() => {
-    if (!previewImagens || previewImagens.length <= 1 || !isHovered) return;
+    if (!previewImagens || previewImagens.length <= 1) return;
     const interval = setInterval(() => {
       setActiveImg((current) => (current + 1) % previewImagens.length);
-    }, 3000); // 3000ms para rodar automaticamente
+    }, 2500); // 2500ms para rodar automaticamente de forma um pouco mais rápida
     return () => clearInterval(interval);
-  }, [previewImagens.length, isHovered]);
+  }, [previewImagens.length]);
 
   return (
     <motion.div
@@ -32,7 +32,7 @@ function EmpreendimentoCard({ emp, index }: { emp: Empreendimento; index: number
       <Link
         to={`/empreendimento/${emp.slug}`}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => { setIsHovered(false); setActiveImg(0); }}
+        onMouseLeave={() => { setIsHovered(false); }}
         className="h-full group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 hover:border-[#2d6a4f]/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(45,106,79,0.1)]"
       >
       {/* Image area */}

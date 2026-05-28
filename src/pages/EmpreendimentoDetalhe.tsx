@@ -530,7 +530,7 @@ export default function EmpreendimentoDetalhe() {
             {emp.localizacao && (
               <div className="mt-5 flex flex-col gap-2.5">
                 <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${emp.localizacao.lat},${emp.localizacao.lng}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${emp.localizacao ? `${emp.localizacao.lat},${emp.localizacao.lng}` : encodeURIComponent(emp.enderecoCurto || emp.endereco)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl border border-zinc-200 hover:border-zinc-300 bg-zinc-50 text-[13px] text-zinc-600 hover:text-zinc-900 transition-all duration-200 group"
@@ -539,7 +539,7 @@ export default function EmpreendimentoDetalhe() {
                   Como chegar com Google Maps
                 </a>
                 <a
-                  href={`https://waze.com/ul?ll=${emp.localizacao.lat},${emp.localizacao.lng}&navigate=yes`}
+                  href={`https://waze.com/ul?${emp.localizacao ? `ll=${emp.localizacao.lat},${emp.localizacao.lng}` : `q=${encodeURIComponent(emp.enderecoCurto || emp.endereco)}`}&navigate=yes`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl border border-zinc-200 hover:border-zinc-300 bg-zinc-50 text-[13px] text-zinc-600 hover:text-zinc-900 transition-all duration-200 group"
