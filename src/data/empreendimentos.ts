@@ -83,7 +83,7 @@ export const empreendimentos: Empreendimento[] = [
     cadernoDePlantas: '/cadernoDePlantasIlumiBueno.pdf',
     galeria: [
       {
-        nome: 'Area comum / Lazer',
+        nome: 'Área comum / Lazer',
         imagens: [
           '/images/ilumi-bueno/area-comum/01 - Fachada frente.jpg',
           '/images/ilumi-bueno/area-comum/01 - Fachada 2.jpg',
@@ -125,7 +125,7 @@ export const empreendimentos: Empreendimento[] = [
         ],
       },
       {
-        nome: 'Decorado 3Q',
+        nome: 'Decorado 3Q - 109m²',
         imagens: [
           '/images/ilumi-bueno/decorado-3q/01-ENTRADA.jpeg',
           '/images/ilumi-bueno/decorado-3q/02-SALA ESTAR - HOME.jpeg',
@@ -145,8 +145,8 @@ export const empreendimentos: Empreendimento[] = [
           '/images/ilumi-bueno/decorado-3q/16-QUARTO 2.jpg',
           '/images/ilumi-bueno/decorado-3q/17-QUARTO 2.jpeg',
           '/images/ilumi-bueno/decorado-3q/18-QUARTO 2.jpeg',
-          '/images/ilumi-bueno/decorado-3q/19-SUÍTE CASAL.jpeg',
-          '/images/ilumi-bueno/decorado-3q/20-SUÍTE CASAL.jpeg',
+          '/images/ilumi-bueno/decorado-3q/19-SUÍTE CASAL.jpg',
+          '/images/ilumi-bueno/decorado-3q/20-SUÍTE CASAL.jpg',
           '/images/ilumi-bueno/decorado-3q/21-SUÍTE CASAL.jpeg',
           '/images/ilumi-bueno/decorado-3q/22-SUÍTE CASAL.jpg',
           '/images/ilumi-bueno/decorado-3q/23-SUÍTE CASAL (PENTEADEIRA).jpg',
@@ -180,7 +180,7 @@ export const empreendimentos: Empreendimento[] = [
         label: '2 Quartos · 64m²',
         quartos: '2 Quartos (1 suíte)',
         area: '64m²',
-        vagas: '1–2 vagas',
+        vagas: '1 vaga',
         planta: '/images/ilumi-bueno/planta-64m.jpg',
       },
       {
@@ -205,23 +205,35 @@ export const empreendimentos: Empreendimento[] = [
     pontosDeInteresse: [
       {
         categoria: 'Hospital',
-        locais: [{ nome: 'Hospital Master', lat: -16.7120, lng: -49.2680 }],
+        locais: [{ nome: 'Hospital do Amparo', lat: -16.7090, lng: -49.2690 }],
       },
       {
         categoria: 'Padaria',
-        locais: [{ nome: 'Padaria Modelo', lat: -16.7130, lng: -49.2640 }],
+        locais: [
+          { nome: 'Panificadora Della', lat: -16.7080, lng: -49.2680 },
+          { nome: 'Padaria', lat: -16.710648938392797, lng: -49.26616634272973 },
+          { nome: 'Padaria', lat: -16.71718933935981, lng: -49.2670300140134 }
+        ],
       },
       {
         categoria: 'Mercado',
-        locais: [{ nome: 'Supermercado Bretas', lat: -16.7160, lng: -49.2660 }],
+        locais: [{ nome: 'Pão de Açúcar', lat: -16.7096, lng: -49.2726 }],
       },
       {
         categoria: 'Farmácia',
-        locais: [{ nome: 'Drogasil', lat: -16.7150, lng: -49.2630 }],
+        locais: [
+          { nome: 'Drogaria Pacheco', lat: -16.7085, lng: -49.2675 },
+          { nome: 'Farmácia', lat: -16.714207857358613, lng: -49.2686395395505 },
+          { nome: 'Farmácia', lat: -16.70839180427722, lng: -49.26160142316408 }
+        ],
       },
       {
         categoria: 'Escola',
-        locais: [{ nome: 'Colégio WR', lat: -16.7140, lng: -49.2690 }],
+        locais: [
+          { nome: 'Colégio WR', lat: -16.7011, lng: -49.2692 },
+          { nome: 'Escola', lat: -16.714664991505874, lng: -49.26596805993899 },
+          { nome: 'Escola', lat: -16.714824262167912, lng: -49.26594123784918 }
+        ],
       },
     ],
     setorInfo: {
@@ -395,23 +407,35 @@ export const empreendimentos: Empreendimento[] = [
     pontosDeInteresse: [
       {
         categoria: 'Hospital',
-        locais: [{ nome: 'Hospital Amparo', lat: -16.7126, lng: -49.2686 }],
+        locais: [{ nome: 'Hospital do Amparo', lat: -16.7090, lng: -49.2690 }],
       },
       {
         categoria: 'Padaria',
-        locais: [{ nome: 'Panificadora Mundial', lat: -16.7136, lng: -49.2646 }],
+        locais: [
+          { nome: 'Panificadora Della', lat: -16.7080, lng: -49.2680 },
+          { nome: 'Padaria', lat: -16.710648938392797, lng: -49.26616634272973 },
+          { nome: 'Padaria', lat: -16.71718933935981, lng: -49.2670300140134 }
+        ],
       },
       {
         categoria: 'Mercado',
-        locais: [{ nome: 'Pão de Açúcar', lat: -16.7166, lng: -49.2666 }],
+        locais: [{ nome: 'Pão de Açúcar', lat: -16.7096, lng: -49.2726 }],
       },
       {
         categoria: 'Farmácia',
-        locais: [{ nome: 'Drogaria Pacheco', lat: -16.7156, lng: -49.2636 }],
+        locais: [
+          { nome: 'Drogaria Pacheco', lat: -16.7085, lng: -49.2675 },
+          { nome: 'Farmácia', lat: -16.714207857358613, lng: -49.2686395395505 },
+          { nome: 'Farmácia', lat: -16.70839180427722, lng: -49.26160142316408 }
+        ],
       },
       {
         categoria: 'Escola',
-        locais: [{ nome: 'Colégio WR', lat: -16.7146, lng: -49.2696 }],
+        locais: [
+          { nome: 'Colégio WR', lat: -16.7011, lng: -49.2692 },
+          { nome: 'Escola', lat: -16.714664991505874, lng: -49.26596805993899 },
+          { nome: 'Escola', lat: -16.714824262167912, lng: -49.26594123784918 }
+        ],
       },
     ],
     setorInfo: {
@@ -464,7 +488,7 @@ export const empreendimentos: Empreendimento[] = [
           '/images/bosque-das-orquideas/fotos-reais/07 - Churrasqueira.JPG',
           '/images/bosque-das-orquideas/fotos-reais/16 - Piscinas.JPG',
           '/images/bosque-das-orquideas/fotos-reais/18 - Piscina Mar.26.jpeg',
-          '/images/bosque-das-orquideas/fotos-reais/21 - playground.jpeg',
+          '/images/bosque-das-orquideas/fotos-reais/21 - playground.jpg',
           '/images/bosque-das-orquideas/fotos-reais/22 - playground.jpeg',
         ],
       },
@@ -510,23 +534,40 @@ export const empreendimentos: Empreendimento[] = [
     pontosDeInteresse: [
       {
         categoria: 'Hospital',
-        locais: [{ nome: 'Hospital Aparecida', lat: -16.7550, lng: -49.2280 }],
+        locais: [
+          { nome: 'Hospital', lat: -16.742255745945428, lng: -49.22837615026584 },
+          { nome: 'Hospital', lat: -16.73617341488543, lng: -49.22537207620416 }
+        ],
       },
       {
         categoria: 'Mercado',
-        locais: [{ nome: 'Atacadão', lat: -16.7520, lng: -49.2250 }],
+        locais: [
+          { nome: 'Mercado', lat: -16.751045781463592, lng: -49.22155340307847 },
+          { nome: 'Mercado', lat: -16.750018421740606, lng: -49.242195683398116 }
+        ],
       },
       {
         categoria: 'Escola',
-        locais: [{ nome: 'Escola Municipal', lat: -16.7540, lng: -49.2240 }],
+        locais: [
+          { nome: 'Escola', lat: -16.725581829614367, lng: -49.225116169057365 },
+          { nome: 'Escola', lat: -16.726814818758513, lng: -49.23430005260914 },
+          { nome: 'Escola', lat: -16.727719005729696, lng: -49.241595661038126 }
+        ],
       },
       {
         categoria: 'Padaria',
-        locais: [{ nome: 'Padaria Santa Luzia', lat: -16.7530, lng: -49.2270 }],
+        locais: [
+          { nome: 'Padaria', lat: -16.74321077282607, lng: -49.2314247335175 },
+          { nome: 'Padaria', lat: -16.758621137656462, lng: -49.22009508275191 }
+        ],
       },
       {
         categoria: 'Farmácia',
-        locais: [{ nome: 'Farmácia Pague Menos', lat: -16.7510, lng: -49.2280 }],
+        locais: [
+          { nome: 'Farmácia', lat: -16.74976533936559, lng: -49.22601740072929 },
+          { nome: 'Farmácia', lat: -16.7477106005558, lng: -49.22820608325799 },
+          { nome: 'Farmácia', lat: -16.76003870071617, lng: -49.225202009198995 }
+        ],
       },
     ],
     setorInfo: {
